@@ -1,0 +1,246 @@
+/* Основной стиль тарифов */
+.tariffs {
+  padding: 40px 20px;
+  background-color: #1A1A1D;
+  text-align: center;
+}
+
+.tariffs h2 {
+  font-size: 3rem;
+  margin-bottom: 50px;
+  color: #E4E4E4;
+}
+
+.tariff-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Тариф "Я САМ" */
+.tariff-card {
+  background-color: #4E4E50;
+  border-radius: 15px;
+  padding: 30px;
+  width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tariff-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tariff-card h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #F05454;
+}
+
+.tariff-card.premium h3 {
+  color: #FFD700;
+}
+
+.tariff-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.tariff-card ul li {
+  margin-bottom: 15px;
+  color: #E4E4E4;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  flex-wrap: nowrap; /* Отключает перенос текста */
+}
+
+.tariff-card ul li .check-icon.basic {
+  color: #F05454;
+  margin-right: 10px;
+}
+
+.tariff-card ul li .check-icon.premium {
+  color: #FFD700;
+  margin-right: 10px;
+}
+
+.bonus {
+  color: #FFD700;
+}
+
+.tariff-card .price {
+  margin-bottom: 30px;
+}
+
+.tariff-card .price p {
+  font-size: 1.2rem;
+  color: #E4E4E4;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+}
+
+/* Кнопки */
+.tariff-card .pay-button,
+.tariff-card .pay-button.full {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.details-button {
+  background-color: transparent; /* Убирает фон */
+  text-decoration: underline;
+  color: white; /* Устанавливает белый цвет текста */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+
+
+.tariff-card .pay-button {
+  background-color: #6F2232;
+  color: #fff;
+}
+
+.tariff-card .pay-button.full {
+  background-color: #F05454;;
+  color: #000;
+}
+
+.pay-button.full:hover {
+  background-color: #D93D3D;
+}
+
+/* Желтые кнопки в тарифе "Хочу с вами" */
+.tariff-card.premium .pay-button {
+  background-color: #b89e14;
+  color: #1A1A1D;
+  border: 2px solid #b89e14;
+}
+
+.tariff-card.premium .pay-button:hover {
+  background-color: #FFC107;
+  color: #1A1A1D;
+}
+
+/* Привлекательная кнопка для полного курса "Хочу с вами" */
+.tariff-card.premium .pay-button.full {
+  background-color: #FFD700;
+  color: #000;
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 10px #FFD700; /* Привлекательная тень */
+}
+
+.tariff-card.premium .pay-button.full:hover {
+  background-color: #FFC107;
+  box-shadow: 0 0 15px #FFD700;
+  color: #000;
+}
+
+/* Желтая кнопка для тарифа "Хочу с вами" на месяц */
+.tariff-card.premium .pay-button.month {
+  background-color: #FFD700;
+  color: #1A1A1D;
+  border: 2px solid #FFD700;
+}
+
+.tariff-card.premium .pay-button.month:hover {
+  background-color: #FFC107;
+  box-shadow: 0 0 10px #FFD700;
+}
+
+.premium-btn:hover {
+  background-color: #FFD700;
+}
+
+.premium-btn {
+  background-color: #FFC107;
+}
+
+/* Premium Highlight */
+.premium ul li {
+  color: #FFD700;
+}
+
+.tariff-card .bonus-box {
+  background-color: #FFD700; /* Желтый фон для бонусов */
+  color: #1A1A1D;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.bonus-box .icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.check-icon {
+  min-width: 1.4rem; /* Устанавливаем фиксированную минимальную ширину для иконки */
+  height: 1.4rem; /* Фиксированная высота для иконки */
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0; /* Отключает сжатие иконки */
+}
+
+.red-check {
+  color: #F05454; /* Красные галочки для тарифа "Я сам" */
+  font-size: inherit;
+}
+
+.yellow-check {
+  color: #FFD700; /* Желтые галочки для тарифа "Хочу с вами" */
+  font-size: inherit;
+}
+
+.tariff-card.premium {
+  background-color: #4E4E50;
+  color: #fff;
+}
+
+.premium-btn {
+  background-color: #FFD700;
+  color: #1A1A1D;
+}
+
+.premium-btn:hover {
+  background-color: #FFC107;
+}
+
+.pay-button.full {
+  background-color: #F05454; /* Привлекательная кнопка для оплаты целиком */
+  color: #fff;
+}
+
+.pay-button.full:hover {
+  background-color: #D93D3D;
+}
+
+.premium-highlight {
+  border: 2px solid #FFD700; /* Подсветка вокруг премиум тарифа */
+  box-shadow: 0 0 15px #FFD700;
+}

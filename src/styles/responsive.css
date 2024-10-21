@@ -1,0 +1,311 @@
+/* Responsive Styles */
+
+/* Tablet and above */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+  }
+
+  .navbar-logo {
+    margin-bottom: 15px;
+  }
+
+  .navbar-logo img {
+    height: 40px;
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Ensures the links are horizontally centered */
+    justify-content: center; /* Centers vertically */
+    gap: 20px;
+    width: 100%;  /* Ensure the links take up full width */
+    text-align: center;
+    padding: 0;   /* Reset any possible padding */
+  }
+
+  .navbar-contact {
+    margin-top: 15px;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .about-us, .about-course, .contacts {
+    padding: 40px 20px;
+  }
+
+  .header-title {
+    font-size: 3rem;
+  }
+
+  .tariff-card {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .tariffs h2 {
+    font-size: 2.5rem;
+  }
+
+  .tariff-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .tariff-card ul li {
+    font-size: 1rem;
+  }
+
+  .contacts h2 {
+    font-size: 2.2rem;
+  }
+
+  .contacts ul li {
+    font-size: 1.1rem;
+  }
+
+  .tariff-form h3 {
+    font-size: 1.8rem;
+  }
+
+  .tariff-form input {
+    max-width: 350px;
+    padding: 12px;
+  }
+
+  .tariff-form button {
+    font-size: 1.1rem;
+    padding: 12px 25px;
+  }
+
+  .tariff-form {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .contact-options {
+    gap: 10px;
+  }
+
+  .contact-option {
+    padding: 10px 18px; /* Уменьшен padding для контактных кнопок */
+    font-size: 1rem;
+  }
+}
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  /* Center all items vertically */
+    padding: 10px 15px;
+  }
+
+  .navbar-logo {
+    margin-bottom: 15px;
+  }
+
+  .navbar-logo img {
+    height: 35px;
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    width: 100%;  /* Take up the full width */
+    gap: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .navbar-contact {
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .about-us, .about-course, .tariff-cards, .contacts {
+    padding: 30px 10px;
+  }
+
+  .tariff-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .tariffs h2 {
+    font-size: 2.2rem;
+  }
+
+  .tariff-card h3 {
+    font-size: 1.7rem;
+  }
+
+  .tariff-card ul li {
+    font-size: 0.9rem;
+  }
+
+  .tariff-card .price p {
+    font-size: 1.1rem;
+  }
+
+  .tariff-card .details-button,
+  .tariff-card .pay-button,
+  .tariff-card .pay-button.full {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .tariff-form h3 {
+    font-size: 1.6rem;
+  }
+
+  .tariff-form input {
+    max-width: 320px;
+    padding: 10px;
+  }
+
+  .tariff-form button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .tariff-form {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .contact-options {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contact-option {
+    padding: 10px 15px; /* Уменьшены кнопки на маленьких экранах */
+    font-size: 1rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  /* Vertically center all items */
+    padding: 10px;
+  }
+
+  .navbar-logo {
+    margin-bottom: 15px;
+  }
+
+  .navbar-logo img {
+    height: 30px;
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensure horizontal centering */
+    justify-content: center; /* Ensure vertical centering */
+    width: 100%; /* Take full width to ensure proper alignment */
+    gap: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .navbar-contact {
+    margin-top: 10px;
+    justify-content: center;
+    width: 100%; /* Take full width to center the contact button */
+    text-align: center;
+  }
+
+  .navbar-contact a {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .header-title {
+    font-size: 2.2rem;
+  }
+
+  .header-button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .about-us, .about-course, .contacts {
+    padding: 20px 10px;
+  }
+
+  .tariff-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .tariffs h2 {
+    font-size: 2rem;
+  }
+
+  .tariff-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .tariff-card ul li {
+    font-size: 0.85rem;
+  }
+
+  .tariff-card .price p {
+    font-size: 1rem;
+  }
+
+  .tariff-card .details-button,
+  .tariff-card .pay-button,
+  .tariff-card .pay-button.full {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .old-price {
+    font-size: 0.8rem;
+  }
+
+  .tariff-form h3 {
+    font-size: 1.5rem;
+  }
+
+  .tariff-form input {
+    max-width: 280px;
+    padding: 8px;
+  }
+
+  .tariff-form button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .tariff-form {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .contact-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-option {
+    padding: 8px 12px; /* Более компактные контактные кнопки */
+    font-size: 0.9rem;
+  }
+}

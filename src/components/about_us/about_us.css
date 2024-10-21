@@ -1,0 +1,60 @@
+.about-us {
+    padding: 45px 20px;
+    background-color: #1A1A1D;
+    text-align: center;
+  }
+  
+  .about-us-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .about-us-intro {
+    margin-bottom: 40px;
+  }
+  
+  .about-us-intro h2 {
+    font-size: 3rem;
+    color: #E4E4E4;
+  }
+  
+  .about-us-intro p {
+    font-size: 1.3rem;
+    color: #F05454;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .advantages {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .advantage {
+    flex: 1 1 30%;
+    margin: 20px;
+    padding: 30px;
+    background-color: #4E4E50;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .advantage img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  
+  .advantage h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #F05454;
+  }
+  
+  .advantage p {
+    font-size: 1.1rem;
+    color: #E4E4E4;
+  }
+  

@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
+/* Сбрасываем отступы и устанавливаем высоту для body и html */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #1A1A1D; 
+    font-family: 'Poppins', sans-serif;
+    color: #E4E4E4;
+  }
+  
+  /* Убедитесь, что корневой элемент также занимает 100% высоты */
+  #root {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #1A1A1D; 
+  }
+ 
+/* Разделитель между секциями */
+.section-divider {
+  background-color: #4E4E50; /* Тонкий серый цвет, соответствующий общему дизайну */
+  height: 2px; /* Очень тонкая линия */
+  width: 80%; /* Достаточно широкая, но не на всю ширину */
+  margin: 30px auto; /* Уменьшенные отступы сверху и снизу */
+  border-radius: 1px; /* Легкое округление углов */
+  opacity: 0.6; /* Небольшая прозрачность, чтобы сделать его более сдержанным */
+}

@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles/main.css";
+import "./styles/responsive.css";
+
+import Navbar from "./components/navbar/Navbar";
+import Header from "./components/header/Header";
+import AboutUs from "./components/about_us/AboutUs";
+import AboutCourse from "./components/about_courses/AboutCourses";
+import Tariffs from "./components/tariffs/Tariffs";
+import FreeForm from "./components/free-form/FreeForm";
+import Contacts from "./components/contacts/Contacts";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Header />
+      <section id="about">
+        <AboutUs />
+      </section>
+      <section id="course">
+        <AboutCourse />
+      </section>
+      <section id="pricing">
+        <Tariffs />
+      </section>
+      <section id="form">
+        <FreeForm />
+      </section>
+      <section id="contacts">
+        <Contacts />
+      </section>
     </div>
   );
 }

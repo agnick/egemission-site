@@ -1,0 +1,51 @@
+.about-course {
+    padding: 5px 20px;
+    background-color: #1A1A1D;
+    text-align: center;
+  }
+  
+  .about-course-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .about-course h2 {
+    font-size: 3rem;
+    color: #E4E4E4;
+    margin-bottom: 30px;
+  }
+  
+  .course-duration {
+    font-size: 1.3rem;
+    color: #F05454;
+    margin-bottom: 40px;
+  }
+  
+  .course-details h3 {
+    font-size: 2.5rem;
+    color: #F05454;
+    margin-bottom: 20px;
+  }
+  
+  .course-details ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .course-details li {
+    font-size: 1.3rem;
+    color: #E4E4E4;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    text-align: left;
+    position: relative;
+  }
+  
+  .course-details li::before {
+    content: '✔';
+    color: #F05454;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  

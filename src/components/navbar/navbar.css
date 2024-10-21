@@ -1,0 +1,70 @@
+/* Navbar стили */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1A1A1D; /* Темный фон для navbar */
+  padding: 15px 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid #4E4E50;
+}
+
+.navbar-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-logo img {
+  height: 80px;
+  max-width: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  white-space: nowrap;
+  flex: 1;
+  justify-content: center;
+}
+
+/* Стили кнопок в navbar (как текст) */
+.navbar-links button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #E4E4E4;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-links button:hover {
+  color: #C3073F; /* Акцент на hover */
+}
+
+.navbar-contact {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.navbar-contact a {
+  text-decoration: none;
+  color: #c21d3e; /* Matches one of the logo colors */
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: rgba(146, 21, 48, 0.2); /* Subtle shade from logo colors */
+  transition: background-color 0.3s ease-in-out;
+  max-width: fit-content;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.navbar-contact a:hover {
+  background-color: rgba(110, 34, 49, 0.4); /* Darker shade for hover effect */
+}
