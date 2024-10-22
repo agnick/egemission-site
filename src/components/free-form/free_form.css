@@ -4,7 +4,7 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #1A1A1D;
+  background-color: #1A1A1D; /* Тёмный фон */
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Добавление теней */
@@ -13,7 +13,7 @@
 .tariff-form h3 {
   font-size: 2.2rem; /* Увеличен шрифт для заголовка */
   margin-bottom: 25px;
-  color: #E4E4E4;
+  color: #E4E4E4; /* Светлый оттенок для заголовка */
   text-align: center;
 }
 
@@ -30,7 +30,7 @@
   padding: 15px;
   margin-bottom: 5px; /* Минимум пространства между полем и ошибкой */
   border-radius: 12px; /* Более округлые края */
-  border: 1px solid #4E4E50;
+  border: 1px solid #4E4E50; /* Серый оттенок для рамки */
   background-color: #333;
   color: #E4E4E4;
   font-size: 1.1rem;
@@ -40,13 +40,13 @@
 }
 
 .tariff-form input:focus {
-  border-color: #F05454; /* Яркий акцент при фокусе */
-  box-shadow: 0 4px 10px rgba(240, 84, 84, 0.3); /* Дополнительная тень при фокусе */
+  border-color: #C3073F; /* Яркий акцент при фокусе */
+  box-shadow: 0 4px 10px rgba(195, 7, 63, 0.3); /* Дополнительная тень при фокусе */
   outline: none;
 }
 
 .error {
-  color: #F05454;
+  color: #C3073F; /* Красный цвет для ошибок */
   font-size: 0.85rem;
   margin-top: 5px;
   text-align: center;
@@ -74,7 +74,7 @@
   padding: 12px 20px;
   font-size: 1.1rem; /* Чуть увеличен шрифт */
   cursor: pointer;
-  border: 2px solid #6F2232;
+  border: 2px solid #6F2232; /* Тёмно-красный оттенок */
   display: flex;
   align-items: center;
   justify-content: center; /* Центрирование иконок */
@@ -83,12 +83,12 @@
 }
 
 .contact-option.selected {
-  background-color: #6F2232;
+  background-color: #6F2232; /* Темно-красный фон для выделенных опций */
   color: #fff;
 }
 
 .contact-option:hover, .contact-option:active {
-  background-color: #950740;
+  background-color: #950740; /* Насыщенный красный при наведении */
   color: #fff;
   box-shadow: 0 6px 12px rgba(149, 7, 64, 0.4); /* Более выраженные тени при наведении */
 }
@@ -101,19 +101,26 @@
   padding: 15px 30px; /* Увеличен padding для кнопки */
   border: none;
   border-radius: 50px;
-  background-color: #F05454;
+  background-color: #C3073F; /* Яркий красный оттенок для кнопки */
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
   margin-top: 20px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 12px rgba(240, 84, 84, 0.3); /* Тень у кнопки */
+  box-shadow: 0 4px 12px rgba(195, 7, 63, 0.3); /* Тень у кнопки */
 }
 
 .tariff-form button:hover {
-  background-color: #D93D3D;
-  box-shadow: 0 6px 16px rgba(217, 61, 61, 0.5); /* Тени при наведении */
+  background-color: #950740; /* Темный красный оттенок при наведении */
+  box-shadow: 0 6px 16px rgba(149, 7, 64, 0.5); /* Тени при наведении */
 }
+
+/* Изменение цвета кнопки при нажатии */
+.tariff-form button:active {
+  background-color: #6F2232; /* Темно-красный оттенок при нажатии */
+  box-shadow: 0 2px 8px rgba(110, 34, 50, 0.5); /* Тени при нажатии */
+}
+
 
 .policy-info {
   margin-top: 20px;

@@ -54,11 +54,11 @@
 
 .navbar-contact a {
   text-decoration: none;
-  color: #c21d3e; /* Matches one of the logo colors */
+  color: #C3073F; /* Яркий красный из палитры */
   font-size: 1rem;
   padding: 10px 20px;
   border-radius: 20px;
-  background-color: rgba(146, 21, 48, 0.2); /* Subtle shade from logo colors */
+  background-color: rgba(110, 34, 50, 0.2); /* Легкий оттенок для фона кнопки */
   transition: background-color 0.3s ease-in-out;
   max-width: fit-content;
   white-space: nowrap;
@@ -66,5 +66,6 @@
 }
 
 .navbar-contact a:hover {
-  background-color: rgba(110, 34, 49, 0.4); /* Darker shade for hover effect */
+  background-color: rgba(149, 7, 64, 0.4); /* Более насыщенный оттенок для эффекта hover */
 }
+
