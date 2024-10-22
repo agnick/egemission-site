@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/egemission-site/static/css/main.cae5211b.css",
+    "main.js": "/egemission-site/static/js/main.08043615.js",
+    "static/js/453.4e111681.chunk.js": "/egemission-site/static/js/453.4e111681.chunk.js",
+    "static/media/back.jpg": "/egemission-site/static/media/back.4aeba8c8512aaf8e8130.jpg",
+    "static/media/logo.png": "/egemission-site/static/media/logo.5f4abbb12f21a8f2651d.png",
+    "index.html": "/egemission-site/index.html",
+    "main.cae5211b.css.map": "/egemission-site/static/css/main.cae5211b.css.map",
+    "main.08043615.js.map": "/egemission-site/static/js/main.08043615.js.map",
+    "453.4e111681.chunk.js.map": "/egemission-site/static/js/453.4e111681.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cae5211b.css",
+    "static/js/main.08043615.js"
+  ]
+}
