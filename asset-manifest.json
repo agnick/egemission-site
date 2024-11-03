@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/egemission-site/static/css/main.51b40a17.css",
-    "main.js": "/egemission-site/static/js/main.67fd4d76.js",
-    "static/js/453.4e111681.chunk.js": "/egemission-site/static/js/453.4e111681.chunk.js",
-    "static/media/logo.png": "/egemission-site/static/media/logo.5f4abbb12f21a8f2651d.png",
-    "index.html": "/egemission-site/index.html",
-    "main.51b40a17.css.map": "/egemission-site/static/css/main.51b40a17.css.map",
-    "main.67fd4d76.js.map": "/egemission-site/static/js/main.67fd4d76.js.map",
-    "453.4e111681.chunk.js.map": "/egemission-site/static/js/453.4e111681.chunk.js.map"
+    "main.css": "/egemission-site2/static/css/main.51b40a17.css",
+    "main.js": "/egemission-site2/static/js/main.ab2f3158.js",
+    "static/js/453.4e111681.chunk.js": "/egemission-site2/static/js/453.4e111681.chunk.js",
+    "static/media/logo.png": "/egemission-site2/static/media/logo.5f4abbb12f21a8f2651d.png",
+    "index.html": "/egemission-site2/index.html",
+    "main.51b40a17.css.map": "/egemission-site2/static/css/main.51b40a17.css.map",
+    "main.ab2f3158.js.map": "/egemission-site2/static/js/main.ab2f3158.js.map",
+    "453.4e111681.chunk.js.map": "/egemission-site2/static/js/453.4e111681.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.51b40a17.css",
-    "static/js/main.67fd4d76.js"
+    "static/js/main.ab2f3158.js"
   ]
 }
