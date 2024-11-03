@@ -25,11 +25,11 @@ const Navbar = () => {
       </ul>
       <div className="navbar-contact">
         <a
-          href="https://t.me/idmanagerazaregaempotom"
+          href="https://t.me/egemission"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Связаться с нами в телеграмм @magazin
+          Связаться с нами в телеграмм @egemission
         </a>
       </div>
     </nav>

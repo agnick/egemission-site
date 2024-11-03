@@ -1,6 +1,6 @@
 .about-course {
   padding: 5px 20px;
-  background-color: #1A1A1D; /* Темный оттенок для фона */
+  background-color: #FFFFFF; /* Темный оттенок для фона */
   text-align: center;
 }
 
@@ -11,19 +11,20 @@
 
 .about-course h2 {
   font-size: 3rem;
-  color: #E4E4E4; /* Светлый оттенок для заголовка */
+  color: #B94A70; /* Светлый оттенок для заголовка */
   margin-bottom: 30px;
 }
 
 .course-duration {
   font-size: 1.3rem;
-  color: #C3073F; /* Яркий красный оттенок для продолжительности курса */
+  font-weight: bold;
+  color: #000000; /* Яркий красный оттенок для продолжительности курса */
   margin-bottom: 40px;
 }
 
 .course-details h3 {
   font-size: 2.5rem;
-  color: #950740; /* Насыщенный оттенок красного для заголовков деталей курса */
+  color: #DF7285; /* Насыщенный оттенок красного для заголовков деталей курса */
   margin-bottom: 20px;
 }
 
@@ -34,7 +35,7 @@
 
 .course-details li {
   font-size: 1.3rem;
-  color: #E4E4E4; /* Светлый оттенок для текста */
+  color: #000000; /* Светлый оттенок для текста */
   margin-bottom: 20px;
   padding-left: 30px;
   text-align: left;
@@ -43,7 +44,7 @@
 
 .course-details li::before {
   content: '✔';
-  color: #C3073F; /* Яркий оттенок для галочек */
+  color: #DF7285; /* Яркий оттенок для галочек */
   position: absolute;
   left: 0;
   top: 0;

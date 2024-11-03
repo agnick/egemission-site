@@ -4,16 +4,16 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #1A1A1D; /* Тёмный фон */
+  background-color: #FFFFFF; 
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Добавление теней */
+  border: 5px solid #B94A70;
 }
 
 .tariff-form h3 {
   font-size: 2.2rem; /* Увеличен шрифт для заголовка */
   margin-bottom: 25px;
-  color: #E4E4E4; /* Светлый оттенок для заголовка */
+  color: #000000; 
   text-align: center;
 }
 
@@ -30,9 +30,9 @@
   padding: 15px;
   margin-bottom: 5px; /* Минимум пространства между полем и ошибкой */
   border-radius: 12px; /* Более округлые края */
-  border: 1px solid #4E4E50; /* Серый оттенок для рамки */
-  background-color: #333;
-  color: #E4E4E4;
+  border: 2px solid #B94A70; /* Серый оттенок для рамки */
+  background-color: #FFE6EB;
+  color: #000000;
   font-size: 1.1rem;
   box-sizing: border-box;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Тени для полей */
@@ -40,9 +40,23 @@
 }
 
 .tariff-form input:focus {
-  border-color: #C3073F; /* Яркий акцент при фокусе */
-  box-shadow: 0 4px 10px rgba(195, 7, 63, 0.3); /* Дополнительная тень при фокусе */
+  border-color: #B94A70; /* Яркий акцент при фокусе */
+  box-shadow: 0 4px 10px #B94A70; /* Дополнительная тень при фокусе */
   outline: none;
+}
+
+/* Стили для placeholder */
+.tariff-form input::placeholder {
+  color: #B94A70; /* Замените на любой цвет, который хотите для placeholder */
+  opacity: 0.7; /* Регулируйте непрозрачность, чтобы сделать текст тусклее */
+}
+
+/* Убираем голубой фон при автозаполнении */
+.tariff-form input:-webkit-autofill {
+  background-color: #FFE6EB !important; /* Цвет фона как у обычного состояния */
+  color: #000000 !important;
+  -webkit-box-shadow: 0 0 0 30px #FFE6EB inset; /* Подстраиваем тень для совпадения с цветом фона */
+  -webkit-text-fill-color: #000000 !important;
 }
 
 .error {
@@ -53,7 +67,7 @@
 }
 
 .contact-title {
-  color: #E4E4E4;
+  color: #000000;
   margin-bottom: 15px;
   font-size: 1.3rem; /* Чуть увеличен размер шрифта */
   text-align: center;
@@ -68,29 +82,23 @@
 }
 
 .contact-option {
-  background-color: #fff;
+  background-color: #B94A70;
   color: #000;
   border-radius: 30px;
   padding: 12px 20px;
   font-size: 1.1rem; /* Чуть увеличен шрифт */
   cursor: pointer;
-  border: 2px solid #6F2232; /* Тёмно-красный оттенок */
+  border: 2px solid #B94A70; /* Тёмно-красный оттенок */
   display: flex;
   align-items: center;
   justify-content: center; /* Центрирование иконок */
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Добавлены тени к кнопкам */
+  box-shadow: 0 4px 8px B94A70; /* Добавлены тени к кнопкам */
 }
 
 .contact-option.selected {
-  background-color: #6F2232; /* Темно-красный фон для выделенных опций */
+  background-color: #DF7285; /* Темно-красный фон для выделенных опций */
   color: #fff;
-}
-
-.contact-option:hover, .contact-option:active {
-  background-color: #950740; /* Насыщенный красный при наведении */
-  color: #fff;
-  box-shadow: 0 6px 12px rgba(149, 7, 64, 0.4); /* Более выраженные тени при наведении */
 }
 
 .contact-option .icon {
@@ -101,7 +109,7 @@
   padding: 15px 30px; /* Увеличен padding для кнопки */
   border: none;
   border-radius: 50px;
-  background-color: #C3073F; /* Яркий красный оттенок для кнопки */
+  background-color: #B94A70; /* Яркий красный оттенок для кнопки */
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
@@ -110,7 +118,7 @@
   box-shadow: 0 4px 12px rgba(195, 7, 63, 0.3); /* Тень у кнопки */
 }
 
-.tariff-form button:hover {
+.button:hover {
   background-color: #950740; /* Темный красный оттенок при наведении */
   box-shadow: 0 6px 16px rgba(149, 7, 64, 0.5); /* Тени при наведении */
 }
@@ -125,7 +133,7 @@
 .policy-info {
   margin-top: 20px;
   font-size: 0.9rem;
-  color: #999;
+  color: #000;
   text-align: center;
 }
 
@@ -135,7 +143,22 @@
 }
 
 .success-message {
-  color: #4CAF50; /* Зеленый цвет для отображения успешного сообщения */
+  color: #000000; /* Зеленый цвет для отображения успешного сообщения */
+  background-color: #FFE6EB; /* Темный фон для соответствия общему дизайну */
+  padding: 15px;
+  border-radius: 12px;
+  border: 3px solid #B94A70;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  max-width: 400px; /* Максимальная ширина сообщения */
+  margin: 20px auto; /* Центрирование сообщения */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Добавление тени для выделения */
+  transition: all 0.3s ease;
+}
+
+.error-message {
+  color: #C3073F; /* Красный цвет для отображения сообщения об ошибке */
   background-color: #333; /* Темный фон для соответствия общему дизайну */
   padding: 15px;
   border-radius: 12px;
@@ -147,3 +170,4 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Добавление тени для выделения */
   transition: all 0.3s ease;
 }
+

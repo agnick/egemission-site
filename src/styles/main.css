@@ -7,9 +7,9 @@ html, body {
     padding: 0;
     height: 100%;
     overflow-x: hidden;
-    background-color: #1A1A1D; 
+    background-color: #FFFFFF; 
     font-family: 'Poppins', sans-serif;
-    color: #E4E4E4;
+    color: #000000;
   }
   
   /* Убедитесь, что корневой элемент также занимает 100% высоты */
@@ -17,7 +17,7 @@ html, body {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #1A1A1D; 
+    background-color: #FFFFFF; 
   }
  
 /* Разделитель между секциями */

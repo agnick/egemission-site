@@ -3,10 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1A1A1D; /* Темный фон для navbar */
+  background-color: #B94A70; /* Темный фон для navbar */
   padding: 15px 50px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border-bottom: 2px solid #4E4E50;
 }
 
 .navbar-logo {
@@ -36,14 +35,14 @@
   background: none;
   border: none;
   font-size: 1rem;
-  color: #E4E4E4;
+  color: #FFFFFF;
   font-weight: 500;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
 }
 
 .navbar-links button:hover {
-  color: #C3073F; /* Акцент на hover */
+  color: #e5e5e5; /* Акцент на hover */
 }
 
 .navbar-contact {
@@ -54,11 +53,11 @@
 
 .navbar-contact a {
   text-decoration: none;
-  color: #C3073F; /* Яркий красный из палитры */
+  color: #FFFFFF; /* Яркий красный из палитры */
   font-size: 1rem;
   padding: 10px 20px;
   border-radius: 20px;
-  background-color: rgba(110, 34, 50, 0.2); /* Легкий оттенок для фона кнопки */
+  background-color: #DF7285; /* Легкий оттенок для фона кнопки */
   transition: background-color 0.3s ease-in-out;
   max-width: fit-content;
   white-space: nowrap;
@@ -66,6 +65,6 @@
 }
 
 .navbar-contact a:hover {
-  background-color: rgba(149, 7, 64, 0.4); /* Более насыщенный оттенок для эффекта hover */
+  background-color: #C86677; /* Более насыщенный оттенок для эффекта hover */
 }
 

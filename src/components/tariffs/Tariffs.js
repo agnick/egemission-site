@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "./tariffs.css";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
 
 const Tariffs = () => {
+  const [selectedSubject, setSelectedSubject] = useState("Русский");
+
+  // Обработчики для переключения предметов
+  const handleSubjectChange = (subject) => {
+    setSelectedSubject(subject);
+  };
+
   return (
     <>
       <section id="tariffs" className="tariffs">
-        <h2>Наши тарифы</h2>
+        <h2>
+          Наши тарифы по{" "}
+          {selectedSubject == "Русский" ? "русскому языку" : "математике"}
+        </h2>
+
+        {/* Кнопки для переключения предметов */}
+        <div className="subject-buttons">
+          <button
+            className={`subject-button ${
+              selectedSubject === "Русский" ? "active" : ""
+            }`}
+            onClick={() => handleSubjectChange("Русский")}
+          >
+            Русский
+          </button>
+          <button
+            className={`subject-button ${
+              selectedSubject === "Математика" ? "active" : ""
+            }`}
+            onClick={() => handleSubjectChange("Математика")}
+          >
+            Математика
+          </button>
+        </div>
 
         <div className="tariff-cards">
           {/* Карточка тарифа "Я сам" */}

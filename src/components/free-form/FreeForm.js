@@ -7,12 +7,12 @@ const FreeForm = () => {
     name: "",
     phone: "",
     email: "",
-    contactMethod: "Телефон", // Default contact method
+    contactMethod: "Телефон",
   });
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // Состояние для ошибки
 
-  // Format phone number
   const formatPhoneNumber = (value) => {
     const cleaned = value.replace(/\D/g, "");
     if (cleaned.length === 0) return "";
@@ -28,27 +28,20 @@ const FreeForm = () => {
     return value;
   };
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "phone") {
       const formattedPhone = formatPhoneNumber(value);
       setFormData({ ...formData, [name]: formattedPhone });
     } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      setFormData({ ...formData, [name]: value });
     }
   };
 
-  // Handle contact method selection
   const handleContactSelection = (method) => {
     setFormData({ ...formData, contactMethod: method });
   };
 
-  // Validate input fields
   const validate = () => {
     let errors = {};
     if (!formData.name.trim()) {
@@ -63,7 +56,6 @@ const FreeForm = () => {
     return errors;
   };
 
-  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -73,24 +65,24 @@ const FreeForm = () => {
     }
 
     setErrors({});
+    setIsSubmitted(false);
+    setErrorMessage(""); // Сбрасываем сообщение об ошибке перед отправкой
 
     try {
       const response = await fetch("/send-email", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        alert("Ошибка при отправке данных.");
+        setErrorMessage("Произошла ошибка при отправке данных.");
       }
     } catch (error) {
       console.error("Ошибка:", error);
-      alert("Произошла ошибка при отправке данных.");
+      setErrorMessage("Произошла ошибка при отправке данных."); // Устанавливаем сообщение об ошибке
     }
   };
 
@@ -160,9 +152,14 @@ const FreeForm = () => {
 
           <button type="submit">Отправить заявку</button>
         </form>
+
         {isSubmitted && (
-          <p className="success-message">Заявка успешно отправлена!</p>
+          <p className="success-message">
+            Заявка успешно отправлена! Если сообщение не пришло, то проверьте
+            вкладку спам.
+          </p>
         )}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <div className="policy-info">
           Нажимая на кнопку, ты принимаешь условия политики обработки данных и

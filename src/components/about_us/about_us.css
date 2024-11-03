@@ -1,6 +1,6 @@
 .about-us {
   padding: 45px 20px;
-  background-color: #1A1A1D; /* Использован тёмный оттенок для фона */
+  background-color: #FFFFFF; /* Использован тёмный оттенок для фона */
   text-align: center;
 }
 
@@ -15,12 +15,13 @@
 
 .about-us-intro h2 {
   font-size: 3rem;
-  color: #E4E4E4; /* Светлый оттенок для заголовка */
+  color: #B94A70; /* Светлый оттенок для заголовка */
 }
 
 .about-us-intro p {
   font-size: 1.3rem;
-  color: #C3073F; /* Яркий красный оттенок для текста */
+  font-weight: bold;
+  color: #000000; /* Яркий красный оттенок для текста */
   max-width: 800px;
   margin: 0 auto;
 }
@@ -31,29 +32,86 @@
   flex-wrap: wrap;
 }
 
-.advantage {
+.advantage1 {
   flex: 1 1 30%;
   margin: 20px;
   padding: 30px;
-  background-color: #4E4E50; /* Использован серый оттенок для карточек */
+  background-color: #B94A70; /* Использован серый оттенок для карточек */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;
 }
 
-.advantage img {
+.advantage1 img {
   width: 100px;
   height: 100px;
   margin-bottom: 15px;
 }
 
-.advantage h3 {
+.advantage1 h3 {
   font-size: 1.8rem;
+  font-weight: bold;
   margin-bottom: 10px;
-  color: #C3073F; /* Насыщенный красный оттенок для заголовков карточек */
+  color: #FFFFFF; /* Насыщенный красный оттенок для заголовков карточек */
 }
 
-.advantage p {
+.advantage1 p {
+  font-size: 1.1rem;
+  color: #FFFFFF; /* Светлый оттенок для текста */
+}
+
+.advantage2 {
+  flex: 1 1 30%;
+  margin: 20px;
+  padding: 30px;
+  background-color: #B94A70; /* Использован серый оттенок для карточек */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.advantage2 img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.advantage2 h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #FFFFFF; /* Насыщенный красный оттенок для заголовков карточек */
+}
+
+.advantage2 p {
+  font-size: 1.1rem;
+  color: #E4E4E4; /* Светлый оттенок для текста */
+}
+
+.advantage3 {
+  flex: 1 1 30%;
+  margin: 20px;
+  padding: 30px;
+  background-color: #DF7285; /* Использован серый оттенок для карточек */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.advantage3 img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.advantage3 h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #FFFFFF; /* Насыщенный красный оттенок для заголовков карточек */
+}
+
+.advantage3 p {
   font-size: 1.1rem;
   color: #E4E4E4; /* Светлый оттенок для текста */
 }

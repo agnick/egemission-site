@@ -8,7 +8,9 @@ app.use(express.json());
 
 // Настройки Nodemailer
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Используйте ваш email сервис
+  host: "smtp.yandex.ru",
+  port: 465, // Используйте 587 для TLS
+  secure: true, // true для SSL, false для TLS
   auth: {
     user: process.env.EMAIL_NAME, // Ваш email
     pass: process.env.EMAIL_PASSWORD, // Ваш пароль
