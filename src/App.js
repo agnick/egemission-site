@@ -1,5 +1,6 @@
 import "./styles/main.css";
 import "./styles/responsive.css";
+import "boxicons/css/boxicons.min.css";
 
 import Navbar from "./components/navbar/Navbar";
 import Header from "./components/header/Header";

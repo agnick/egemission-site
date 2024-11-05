@@ -1,70 +1,142 @@
-/* Navbar стили */
-.navbar {
+/* Основной стиль навигации */
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #B94A70; /* Темный фон для navbar */
-  padding: 15px 50px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  background-color: #B94A70;
+  color: white;
+  position: relative;
 }
 
 .navbar-logo {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.navbar-logo img {
   height: 80px;
   max-width: 100%;
   object-fit: contain;
   transition: all 0.3s ease;
+  margin-left: 1rem; /* Отступ слева для симметрии */
 }
 
-.navbar-links {
+/* Стиль для иконки меню */
+.menu {
+  display: none;
+  cursor: pointer;
+  margin-right: 1rem; /* Отступ справа для симметрии */
+}
+
+.menu span {
+  display: block;
+  height: 0.4rem;
+  width: 2.25rem;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  margin: 0.3rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Основной стиль для списка навигации */
+nav ul {
   display: flex;
-  gap: 30px;
   list-style: none;
-  white-space: nowrap;
-  flex: 1;
-  justify-content: center;
+  margin: 0;
+  padding: 0;
+  align-items: center; /* Центрирование элементов списка по вертикали */
 }
 
-/* Стили кнопок в navbar (как текст) */
-.navbar-links button {
+/* Стили для пунктов меню */
+nav ul li {
+  margin: 0 0.5rem;
+}
+
+nav ul li button,
+.navbar-contact {
   background: none;
   border: none;
   font-size: 1rem;
-  color: #FFFFFF;
-  font-weight: 500;
+  font-weight: bold;
   cursor: pointer;
-  transition: color 0.3s ease-in-out;
-}
-
-.navbar-links button:hover {
-  color: #e5e5e5; /* Акцент на hover */
+  color: #FFFFFF;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+  text-decoration: none;
 }
 
 .navbar-contact {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-}
-
-.navbar-contact a {
-  text-decoration: none;
-  color: #FFFFFF; /* Яркий красный из палитры */
-  font-size: 1rem;
-  padding: 10px 20px;
+  background-color: #DF7285;
   border-radius: 20px;
-  background-color: #DF7285; /* Легкий оттенок для фона кнопки */
-  transition: background-color 0.3s ease-in-out;
-  max-width: fit-content;
+  padding: 10px 20px;
   white-space: nowrap;
   text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  transition: background-color 0.3s ease, padding 0.3s ease;
 }
 
-.navbar-contact a:hover {
-  background-color: #C86677; /* Более насыщенный оттенок для эффекта hover */
+.navbar-contact:hover,
+nav ul li button:hover {
+  color: #e5e5e5;
 }
 
+/* Мобильная версия */
+@media (max-width: 1024px) {
+  /* Логотип остается слева, не смещается */
+  .navbar-logo {
+    margin-left: 1rem; /* Отступ сохраняется для симметрии */
+  }
+
+  /* Иконка меню */
+  .menu {
+    display: block;
+  }
+
+  /* Скрываем список навигации по умолчанию */
+  nav ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #B94A70;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  /* При открытии меню, делаем его видимым и центрируем */
+  nav ul.open {
+    display: flex;
+  }
+
+  nav ul li {
+    margin: 0.4rem 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-contact {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+  /* Ограничиваем максимальную ширину и уменьшаем размер текста */
+  .navbar-contact {
+    max-width: 80%;
+    font-size: 0.9rem; /* Уменьшаем размер шрифта */
+    padding: 8px 16px; /* Уменьшаем внутренние отступы */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Дополнительное уменьшение размера текста и адаптация кнопки для маленьких экранов */
+  .navbar-contact {
+    max-width: 70%;
+    font-size: 0.8rem; /* Еще уменьшаем размер шрифта */
+    padding: 6px 12px; /* Еще уменьшаем внутренние отступы */
+  }
+}

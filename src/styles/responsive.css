@@ -2,38 +2,6 @@
 
 /* Tablet and above */
 @media (max-width: 1024px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-  }
-
-  .navbar-logo {
-    margin-bottom: 15px;
-  }
-
-  .navbar-logo img {
-    height: 40px;
-  }
-
-  .navbar-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;  /* Ensures the links are horizontally centered */
-    justify-content: center; /* Centers vertically */
-    gap: 20px;
-    width: 100%;  /* Ensure the links take up full width */
-    text-align: center;
-    padding: 0;   /* Reset any possible padding */
-  }
-
-  .navbar-contact {
-    margin-top: 15px;
-    justify-content: center;
-    width: 100%;
-    text-align: center;
-  }
 
   .about-us, .about-course, .contacts {
     padding: 40px 20px;
@@ -99,39 +67,6 @@
 
 /* Small tablets and large phones */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;  /* Center all items vertically */
-    padding: 10px 15px;
-  }
-
-  .navbar-logo {
-    margin-bottom: 15px;
-  }
-
-  .navbar-logo img {
-    height: 35px;
-  }
-
-  .navbar-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    width: 100%;  /* Take up the full width */
-    gap: 15px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .navbar-contact {
-    justify-content: center;
-    margin-top: 10px;
-    width: 100%;
-    text-align: center;
-  }
-
   .about-us, .about-course, .tariff-cards, .contacts {
     padding: 30px 10px;
   }
@@ -196,44 +131,6 @@
 
 /* Phones */
 @media (max-width: 480px) {
-  .navbar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;  /* Vertically center all items */
-    padding: 10px;
-  }
-
-  .navbar-logo {
-    margin-bottom: 15px;
-  }
-
-  .navbar-logo img {
-    height: 30px;
-  }
-
-  .navbar-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Ensure horizontal centering */
-    justify-content: center; /* Ensure vertical centering */
-    width: 100%; /* Take full width to ensure proper alignment */
-    gap: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  .navbar-contact {
-    margin-top: 10px;
-    justify-content: center;
-    width: 100%; /* Take full width to center the contact button */
-    text-align: center;
-  }
-
-  .navbar-contact a {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-  }
 
   .header-title {
     font-size: 2.2rem;

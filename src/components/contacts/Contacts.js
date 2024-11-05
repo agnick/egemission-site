@@ -14,7 +14,7 @@ const Contacts = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              @manager
+              @egemission
             </a>
           </li>
           <li>

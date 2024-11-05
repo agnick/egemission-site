@@ -15,13 +15,13 @@
 
 .about-us-intro h2 {
   font-size: 3rem;
-  color: #B94A70; /* Светлый оттенок для заголовка */
+  color: #B94A70; 
 }
 
 .about-us-intro p {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #000000; /* Яркий красный оттенок для текста */
+  color: #000000; 
   max-width: 800px;
   margin: 0 auto;
 }
@@ -85,7 +85,7 @@
 
 .advantage2 p {
   font-size: 1.1rem;
-  color: #E4E4E4; /* Светлый оттенок для текста */
+  color: #FFFFFF; /* Светлый оттенок для текста */
 }
 
 .advantage3 {
@@ -113,5 +113,5 @@
 
 .advantage3 p {
   font-size: 1.1rem;
-  color: #E4E4E4; /* Светлый оттенок для текста */
+  color: #FFFFFF; /* Светлый оттенок для текста */
 }

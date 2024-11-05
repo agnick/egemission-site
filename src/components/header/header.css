@@ -49,4 +49,5 @@
 .header-button:hover {
   background-color: #e5c100; /* Более темный оттенок для эффекта наведения */
   box-shadow: 0px 4px 10px #e5c100; /* Соответствующий цвет для тени */
+  cursor: pointer;
 }
