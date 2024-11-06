@@ -19,11 +19,11 @@ const Contacts = () => {
           </li>
           <li>
             <strong>Телефон:</strong>{" "}
-            <a href="tel:+71234567890">+7 123 456 78 90</a>
+            <a href="tel:+71234567890">+7 922 654 46 08</a>
           </li>
           <li>
             <strong>Почта:</strong>{" "}
-            <a href="mailto:info@example.com">info@example.com</a>
+            <a href="mailto:info@example.com">egemission@yandex.ru</a>
           </li>
         </ul>
       </div>

@@ -158,10 +158,11 @@
 }
 
 .error-message {
-  color: #C3073F; /* Красный цвет для отображения сообщения об ошибке */
-  background-color: #333; /* Темный фон для соответствия общему дизайну */
+  color: #000000; /* Зеленый цвет для отображения успешного сообщения */
+  background-color: #FFE6EB; /* Темный фон для соответствия общему дизайну */
   padding: 15px;
   border-radius: 12px;
+  border: 3px solid #B94A70;
   text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
@@ -171,3 +172,28 @@
   transition: all 0.3s ease;
 }
 
+.policy-checkbox {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center align for form */
+  margin-top: 15px;
+}
+
+.policy-container {
+  display: flex;
+  align-items: center;
+  padding: 0 16px; /* Equal padding on both sides */
+  gap: 8px; /* Space between checkbox and text */
+  border-radius: 8px; /* Optional: round corners for a balanced look */
+}
+
+.policy-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #B94A70; /* Border color matching your theme */
+  box-shadow: none; /* Remove any extra shadow */
+  accent-color: #B94A70; /* Checked color */
+}

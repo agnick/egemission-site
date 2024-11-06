@@ -11,7 +11,9 @@ const FreeForm = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // Состояние для ошибки
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [checkboxError, setCheckboxError] = useState(""); // Checkbox error state
 
   const formatPhoneNumber = (value) => {
     const cleaned = value.replace(/\D/g, "");
@@ -59,14 +61,20 @@ const FreeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
+    if (Object.keys(validationErrors).length > 0 || !isChecked) {
       setErrors(validationErrors);
+      if (!isChecked) {
+        setCheckboxError(
+          "Необходимо принять условия политики обработки данных.",
+        ); // Set checkbox error
+      }
       return;
     }
 
     setErrors({});
+    setCheckboxError(""); // Clear checkbox error
     setIsSubmitted(false);
-    setErrorMessage(""); // Сбрасываем сообщение об ошибке перед отправкой
+    setErrorMessage("");
 
     try {
       const response = await fetch("/send-email", {
@@ -82,7 +90,7 @@ const FreeForm = () => {
       }
     } catch (error) {
       console.error("Ошибка:", error);
-      setErrorMessage("Произошла ошибка при отправке данных."); // Устанавливаем сообщение об ошибке
+      setErrorMessage("Произошла ошибка при отправке данных.");
     }
   };
 
@@ -150,6 +158,26 @@ const FreeForm = () => {
             </button>
           </div>
 
+          <div className="policy-checkbox">
+            <div className="policy-container">
+              <input
+                type="checkbox"
+                id="policyCheck"
+                checked={isChecked}
+                onChange={() => {
+                  setIsChecked(!isChecked);
+                  setCheckboxError(""); // Clear checkbox error on change
+                }}
+              />
+              <label htmlFor="policyCheck">
+                Я принимаю условия политики обработки данных и даю согласие на
+                обработку персональных данных.
+              </label>
+            </div>
+            {checkboxError && <p className="error">{checkboxError}</p>}{" "}
+            {/* Checkbox error message below */}
+          </div>
+
           <button type="submit">Отправить заявку</button>
         </form>
 
@@ -159,12 +187,6 @@ const FreeForm = () => {
             вкладку спам.
           </p>
         )}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-        <div className="policy-info">
-          Нажимая на кнопку, ты принимаешь условия политики обработки данных и
-          даёшь согласие на обработку персональных данных.
-        </div>
       </div>
       <div className="section-divider"></div>
     </>

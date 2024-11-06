@@ -4,6 +4,7 @@
   align-items: center;
   min-height: 100vh;
   background-color: #FFFFFF;
+  background-image: url("../../img/back.png");
   background-size: cover;
   background-position: center;
   text-align: center;
