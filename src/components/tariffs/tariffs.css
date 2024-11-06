@@ -284,3 +284,23 @@
   border-radius: 15px;
   box-shadow: 0 0 15px #FFD700;
 }
+
+.offer-button {
+  display: inline-block; /* Restrict width to content */
+  text-align: center; /* Center the text within the link */
+  margin: 30px auto 0; /* Center horizontally and add space above */
+  padding: 10px 20px;
+  background-color: #FFE6EB; /* Muted color */
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  text-decoration: none; /* Remove underline from the link */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.offer-button:hover {
+  background-color: rgba(229, 207, 211, 0.9) /* Slightly darker on hover */
+}

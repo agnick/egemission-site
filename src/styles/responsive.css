@@ -114,13 +114,13 @@
   }
 
   .tariff-form {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
   }
 
   .contact-options {
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 
   .contact-option {
@@ -192,8 +192,8 @@
   }
 
   .tariff-form {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
   }
 
   .contact-options {

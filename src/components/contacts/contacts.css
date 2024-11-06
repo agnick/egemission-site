@@ -1,7 +1,7 @@
 .contacts {
     background-color: #FFFFFF;
     color: #E4E4E4;
-    padding: 50px 20px;
+    padding: 10px 20px;
     text-align: center;
   }
   
@@ -33,6 +33,25 @@
   }
   
   .contacts ul li a:hover {
+    text-decoration: underline;
+  }
+
+  .business-info {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #000000;
+  }
+  
+  .business-info p {
+    margin: 5px 0;
+  }
+  
+  .privacy-policy {
+    color: #B94A70;
+    text-decoration: none;
+  }
+  
+  .privacy-policy:hover {
     text-decoration: underline;
   }
   

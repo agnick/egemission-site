@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./navbar.css";
-import { Link, NavLink } from "react-router-dom";
 import logo from "../../img/logo.png";
 import scrollToSection from "../../helpers/scrollToSection";
 

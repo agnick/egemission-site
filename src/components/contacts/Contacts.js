@@ -10,7 +10,7 @@ const Contacts = () => {
           <li>
             <strong>Telegram Manager:</strong>{" "}
             <a
-              href="https://t.me/manager"
+              href="https://t.me/egemission"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -19,13 +19,20 @@ const Contacts = () => {
           </li>
           <li>
             <strong>Телефон:</strong>{" "}
-            <a href="tel:+71234567890">+7 922 654 46 08</a>
+            <a href="tel:+79956288144">+7 995 628 81 44</a>
           </li>
           <li>
             <strong>Почта:</strong>{" "}
-            <a href="mailto:info@example.com">egemission@yandex.ru</a>
+            <a href="mailto:egemission@yandex.ru">egemission@yandex.ru</a>
           </li>
         </ul>
+      </div>
+
+      <div className="business-info">
+        <p>ИП Шарипова М.А. ИНН 860228612201. ОГРН 324861700105811</p>
+        <a href="#" target="_blank" className="privacy-policy">
+          Политика конфиденциальности
+        </a>
       </div>
     </footer>
   );

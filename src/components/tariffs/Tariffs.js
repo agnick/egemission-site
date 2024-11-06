@@ -6,7 +6,6 @@ import scrollToSection from "../../helpers/scrollToSection";
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
 
-  // Обработчики для переключения предметов
   const handleSubjectChange = (subject) => {
     setSelectedSubject(subject);
   };
@@ -16,10 +15,9 @@ const Tariffs = () => {
       <section id="tariffs" className="tariffs">
         <h2>
           Наши тарифы по{" "}
-          {selectedSubject == "Русский" ? "русскому языку" : "математике"}
+          {selectedSubject === "Русский" ? "русскому языку" : "математике"}
         </h2>
 
-        {/* Кнопки для переключения предметов */}
         <div className="subject-buttons">
           <button
             className={`subject-button ${
@@ -40,9 +38,10 @@ const Tariffs = () => {
         </div>
 
         <div className="tariff-cards">
-          {/* Карточка тарифа "Я сам" */}
+          {/* Card "Я сам" */}
           <div className="tariff-card">
             <h3>Я САМ</h3>
+            {/* Tariff details */}
             <ul>
               <li>
                 <FaCheckCircle className="check-icon red-check" /> Доступ к
@@ -85,7 +84,7 @@ const Tariffs = () => {
             </button>
           </div>
 
-          {/* Карточка тарифа "Хочу с вами" */}
+          {/* Card "Хочу с вами" */}
           <div className="tariff-card premium premium-highlight">
             <h3>ХОЧУ С ВАМИ</h3>
             <div className="bonus-box">
@@ -136,6 +135,16 @@ const Tariffs = () => {
             </button>
           </div>
         </div>
+
+        {/* Centered "Договор-оферта" button */}
+        <a
+          href="/egemission-site/sample.txt"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="offer-button"
+        >
+          Договор-оферта
+        </a>
       </section>
       <div className="section-divider"></div>
     </>
