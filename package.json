@@ -44,7 +44,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "https://egemission.ru/api",
   "devDependencies": {
     "gh-pages": "^6.2.0"
   }
