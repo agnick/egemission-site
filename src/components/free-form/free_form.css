@@ -197,3 +197,15 @@
   box-shadow: none; /* Remove any extra shadow */
   accent-color: #B94A70; /* Checked color */
 }
+
+.policy-container a:link,
+.policy-container a:visited,
+.policy-container a:hover,
+.policy-container a:active {
+  color: #B94A70;
+  text-decoration: none; /* Убирает подчеркивание */
+}
+
+.policy-container a:hover {
+  text-decoration: underline; /* Добавляет подчеркивание при наведении */
+}

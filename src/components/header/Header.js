@@ -6,7 +6,7 @@ const Header = () => {
     <header className="header">
       <div className="header-content">
         <h1 className="header-title">Сдай ЕГЭ на 100 баллов с нами!</h1>
-        <p className="header-slogan">Будущее начинается здесь! – EGEMISSION</p>
+        <p className="header-slogan">Будущее начинается с EGEmission!</p>
         <button
           className="header-button"
           onClick={() => scrollToSection("course")}

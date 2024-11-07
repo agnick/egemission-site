@@ -170,8 +170,23 @@ const FreeForm = () => {
                 }}
               />
               <label htmlFor="policyCheck">
-                Я принимаю условия политики обработки данных и даю согласие на
-                обработку персональных данных.
+                Я принимаю условия{" "}
+                <a
+                  href="/Политика конфиденциальности.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  политики обработки данных
+                </a>{" "}
+                и даю{" "}
+                <a
+                  href="/Пользовательское соглашение .pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  согласие на обработку персональных данных
+                </a>
+                .
               </label>
             </div>
             {checkboxError && <p className="error">{checkboxError}</p>}{" "}

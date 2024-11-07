@@ -54,6 +54,6 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Сервер запущен на порту 3000");
+app.listen(5000, () => {
+  console.log("Сервер запущен на порту 5000");
 });

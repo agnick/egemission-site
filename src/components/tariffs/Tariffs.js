@@ -10,12 +10,64 @@ const Tariffs = () => {
     setSelectedSubject(subject);
   };
 
+  const getTariffData = () => {
+    if (selectedSubject === "Русский" || selectedSubject === "Математика") {
+      return {
+        basic: {
+          title: "СДЕЛАЙ СЕБЯ САМ",
+          month: "2 990 ₽",
+          full: "17 990 ₽",
+          oldMonth: "3 490 ₽",
+          oldFull: "19 990 ₽",
+          bonusText: `Все, что есть в тарифе "СДЕЛАЙ СЕБЯ САМ" + бонусы`,
+          bonusColor: "#B94A70",
+        },
+        premium: {
+          title: "СДЕЛАЙ СЕБЯ С НАМИ",
+          month: "3 990 ₽",
+          full: "23 990 ₽",
+          oldMonth: "4 490 ₽",
+          oldFull: "26 490 ₽",
+          bonusText: `Все, что есть в тарифе "СДЕЛАЙ СЕБЯ САМ" + бонусы`,
+          bonusColor: "#FFD700",
+        },
+      };
+    } else {
+      return {
+        basic: {
+          title: "СЫН МАМИНОЙ ПОДРУГИ",
+          month: "5 390 ₽",
+          full: "31 990 ₽",
+          oldMonth: "6 390 ₽",
+          oldFull: "35 990 ₽",
+          bonusText: "Курс по двум предметам",
+          bonusColor: "#B94A70",
+        },
+        premium: {
+          title: "МАМИН «ТЕМЩИК»",
+          month: "7 190 ₽",
+          full: "42 990 ₽",
+          oldMonth: "8 190 ₽",
+          oldFull: "47 990 ₽",
+          bonusText: "Курс по двум предметам",
+          bonusColor: "#FFD700",
+        },
+      };
+    }
+  };
+
+  const { basic, premium } = getTariffData();
+
   return (
     <>
       <section id="tariffs" className="tariffs">
         <h2>
           Наши тарифы по{" "}
-          {selectedSubject === "Русский" ? "русскому языку" : "математике"}
+          {selectedSubject === "Русский"
+            ? "русскому языку"
+            : selectedSubject === "Математика"
+              ? "математике"
+              : "русскому языку и математике"}
         </h2>
 
         <div className="subject-buttons">
@@ -35,13 +87,28 @@ const Tariffs = () => {
           >
             Математика
           </button>
+          <button
+            className={`subject-button ${
+              selectedSubject === "1+1" ? "active" : ""
+            }`}
+            onClick={() => handleSubjectChange("1+1")}
+          >
+            1+1
+          </button>
         </div>
 
         <div className="tariff-cards">
-          {/* Card "Я сам" */}
+          {/* Basic Tariff Card */}
           <div className="tariff-card">
-            <h3>Я САМ</h3>
-            {/* Tariff details */}
+            <h3>{basic.title}</h3>
+            {selectedSubject === "1+1" && (
+              <div
+                className="bonus-box"
+                style={{ backgroundColor: basic.bonusColor }}
+              >
+                <FaBolt className="icon" /> {basic.bonusText}
+              </div>
+            )}
             <ul>
               <li>
                 <FaCheckCircle className="check-icon red-check" /> Доступ к
@@ -66,12 +133,12 @@ const Tariffs = () => {
             </ul>
             <div className="price">
               <p>
-                Месяц - <strong>2 990 ₽</strong>{" "}
-                <span className="old-price">3 490 ₽</span>
+                Месяц - <strong>{basic.month}</strong>{" "}
+                <span className="old-price">{basic.oldMonth}</span>
               </p>
               <p>
-                Целиком - <strong>17 990 ₽</strong>{" "}
-                <span className="old-price">19 990 ₽</span>
+                Целиком - <strong>{basic.full}</strong>{" "}
+                <span className="old-price">{basic.oldFull}</span>
               </p>
             </div>
             <button className="pay-button">Оплатить курс за месяц</button>
@@ -84,12 +151,17 @@ const Tariffs = () => {
             </button>
           </div>
 
-          {/* Card "Хочу с вами" */}
+          {/* Premium Tariff Card */}
           <div className="tariff-card premium premium-highlight">
-            <h3>ХОЧУ С ВАМИ</h3>
-            <div className="bonus-box">
-              <FaBolt className="icon" /> Все, что есть в тарифе "Я САМ" +
-              бонусы
+            <h3>{premium.title}</h3>
+            <div
+              className="bonus-box"
+              style={{ backgroundColor: premium.bonusColor }}
+            >
+              <FaBolt className="icon" />{" "}
+              {selectedSubject === "1+1"
+                ? "Курс по двум предметам"
+                : premium.bonusText}
             </div>
             <ul>
               <li>
@@ -115,12 +187,12 @@ const Tariffs = () => {
             </ul>
             <div className="price">
               <p>
-                Месяц - <strong>3 990 ₽</strong>{" "}
-                <span className="old-price">4 490 ₽</span>
+                Месяц - <strong>{premium.month}</strong>{" "}
+                <span className="old-price">{premium.oldMonth}</span>
               </p>
               <p>
-                Целиком - <strong>23 990 ₽</strong>{" "}
-                <span className="old-price">26 490 ₽</span>
+                Целиком - <strong>{premium.full}</strong>{" "}
+                <span className="old-price">{premium.oldFull}</span>
               </p>
             </div>
             <button className="pay-button">Оплатить курс за месяц</button>
@@ -138,12 +210,12 @@ const Tariffs = () => {
 
         {/* Centered "Договор-оферта" button */}
         <a
-          href="/egemission-site/sample.txt"
+          href="/Договор_публичной_оферты_об_оказании_платных_образовательных_услуг.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="offer-button"
         >
-          Договор-оферта
+          Публичная оферта
         </a>
       </section>
       <div className="section-divider"></div>
