@@ -5,9 +5,52 @@ import scrollToSection from "../../helpers/scrollToSection";
 
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    phone: "",
+    email: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [isChecked, setIsChecked] = useState(false);
+  const [checkboxError, setCheckboxError] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [paymentType, setPaymentType] = useState("");
+  const [tariffTitle, setTariffTitle] = useState("");
 
   const handleSubjectChange = (subject) => {
     setSelectedSubject(subject);
+  };
+
+  const formatPhoneNumber = (value) => {
+    const cleaned = value.replace(/\D/g, "");
+    if (cleaned.length === 0) return "";
+    if (cleaned.length <= 1) return `+7`;
+    if (cleaned.startsWith("7")) {
+      const formatted = cleaned.match(
+        /^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/,
+      );
+      if (formatted) {
+        return `+7${formatted[1] ? ` (${formatted[1]}` : ""}${formatted[1] && formatted[1].length === 3 ? ")" : ""}${formatted[2] ? ` ${formatted[2]}` : ""}${formatted[3] ? `-${formatted[3]}` : ""}${formatted[4] ? `-${formatted[4]}` : ""}`;
+      }
+    }
+    return value;
+  };
+
+  const validate = () => {
+    let errors = {};
+    if (!formData.firstName.trim()) {
+      errors.firstName = "Введите имя.";
+    }
+    if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formData.phone)) {
+      errors.phone = "Введите корректный номер телефона.";
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Введите корректный email.";
+    }
+    return errors;
   };
 
   const getTariffData = () => {
@@ -57,6 +100,99 @@ const Tariffs = () => {
   };
 
   const { basic, premium } = getTariffData();
+
+  const openModal = (price, type, title) => {
+    // Удаляем символы валюты и пробелы, конвертируем в число и переводим в копейки
+    const parsedPrice = parseInt(price.replace(/[^\d]/g, ""), 10) * 100;
+    setAmount(parsedPrice);
+    setPaymentType(type);
+    setTariffTitle(title);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setErrors({});
+    setCheckboxError("");
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "phone") {
+      const formattedPhone = formatPhoneNumber(value);
+      setFormData({ ...formData, [name]: formattedPhone });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const initiatePayment = async (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0 || !isChecked) {
+      setErrors(validationErrors);
+      if (!isChecked) {
+        setCheckboxError(
+          "Необходимо принять условия политики обработки данных.",
+        );
+      }
+      return;
+    }
+
+    const { firstName, lastName, middleName, phone, email } = formData;
+
+    try {
+      const response = await fetch("/initiate-payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: amount * 100,
+          description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" на ${paymentType}`,
+          customerKey: email,
+          email,
+          phone,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.PaymentURL) {
+        window.location.href = data.PaymentURL;
+
+        // Проверка статуса платежа через несколько секунд после перенаправления
+        setTimeout(async () => {
+          const paymentStatusResponse = await fetch("/payment-status", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              paymentId: data.PaymentId,
+              email,
+              name: `${lastName} ${firstName} ${middleName}`,
+            }),
+          });
+
+          const statusData = await paymentStatusResponse.json();
+          if (statusData.message.includes("Оплата подтверждена")) {
+            alert(
+              "Оплата успешно подтверждена! Письмо отправлено на вашу почту.",
+            );
+          } else {
+            alert("Оплата еще не подтверждена. Проверьте позже.");
+          }
+        }, 10000); // Задержка в 10 секунд для завершения оплаты
+      } else {
+        alert("Ошибка при инициализации платежа.");
+      }
+    } catch (error) {
+      console.error("Ошибка при инициализации платежа:", error);
+      alert("Ошибка при инициализации платежа.");
+    }
+    closeModal();
+  };
 
   return (
     <>
@@ -141,8 +277,18 @@ const Tariffs = () => {
                 <span className="old-price">{basic.oldFull}</span>
               </p>
             </div>
-            <button className="pay-button">Оплатить курс за месяц</button>
-            <button className="pay-button full">Оплатить курс целиком</button>
+            <button
+              onClick={() => openModal(basic.month, "месяц", basic.title)}
+              className="pay-button"
+            >
+              Оплатить курс за месяц
+            </button>
+            <button
+              onClick={() => openModal(basic.full, "полный курс", basic.title)}
+              className="pay-button full"
+            >
+              Оплатить курс целиком
+            </button>
             <button
               className="details-button"
               onClick={() => scrollToSection("form")}
@@ -195,8 +341,18 @@ const Tariffs = () => {
                 <span className="old-price">{premium.oldFull}</span>
               </p>
             </div>
-            <button className="pay-button">Оплатить курс за месяц</button>
-            <button className="pay-button full premium-btn">
+            <button
+              onClick={() => openModal(premium.month, "месяц", premium.title)}
+              className="pay-button"
+            >
+              Оплатить курс за месяц
+            </button>
+            <button
+              onClick={() =>
+                openModal(premium.full, "полный курс", premium.title)
+              }
+              className="pay-button full premium-btn"
+            >
               Оплатить курс целиком
             </button>
             <button
@@ -207,6 +363,101 @@ const Tariffs = () => {
             </button>
           </div>
         </div>
+
+        {/* Модальное окно с формой */}
+        {isModalOpen && (
+          <div className="modal" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <h2>
+                Оплата курса "{tariffTitle}" по {selectedSubject}: {paymentType}
+              </h2>
+              <form onSubmit={initiatePayment}>
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Фамилия"
+                  onChange={handleChange}
+                />
+                {errors.lastName && <p className="error">{errors.lastName}</p>}
+
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="Имя"
+                  onChange={handleChange}
+                />
+                {errors.firstName && (
+                  <p className="error">{errors.firstName}</p>
+                )}
+
+                <input
+                  type="text"
+                  name="middleName"
+                  placeholder="Отчество"
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Телефон"
+                  onChange={handleChange}
+                />
+                {errors.phone && <p className="error">{errors.phone}</p>}
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="E-mail"
+                  onChange={handleChange}
+                />
+                {errors.email && <p className="error">{errors.email}</p>}
+
+                <div className="policy-checkbox">
+                  <div className="policy-container">
+                    <input
+                      type="checkbox"
+                      id="policyCheck"
+                      checked={isChecked}
+                      onChange={() => {
+                        setIsChecked(!isChecked);
+                        setCheckboxError(""); // Clear checkbox error on change
+                      }}
+                    />
+                    <label htmlFor="policyCheck">
+                      Я принимаю условия{" "}
+                      <a
+                        href="/Политика конфиденциальности.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        политики обработки данных
+                      </a>{" "}
+                      и даю{" "}
+                      <a
+                        href="/Пользовательское соглашение .pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        согласие на обработку персональных данных
+                      </a>
+                      .
+                    </label>
+                  </div>
+                  {checkboxError && <p className="error">{checkboxError}</p>}{" "}
+                  {/* Checkbox error message below */}
+                </div>
+
+                <button type="submit" className="pay-button">
+                  Оплатить {amount}
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Centered "Договор-оферта" button */}
         <a

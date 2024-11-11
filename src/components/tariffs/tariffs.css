@@ -304,3 +304,157 @@
 .offer-button:hover {
   background-color: rgba(229, 207, 211, 0.9) /* Slightly darker on hover */
 }
+
+/* Основной стиль для модального окна */
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  padding: 30px;
+  border-radius: 20px;
+  border: 5px solid #B94A70;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #000000;
+  text-align: center;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-content input {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 2px solid #B94A70;
+  background-color: #FFE6EB;
+  color: #000000;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.modal-content input:focus {
+  border-color: #B94A70;
+  box-shadow: 0 4px 10px #B94A70;
+  outline: none;
+}
+
+.modal-content input::placeholder {
+  color: #B94A70;
+  opacity: 0.7;
+}
+
+/* Убираем голубой фон при автозаполнении */
+.modal-content input:-webkit-autofill {
+  background-color: #FFE6EB !important; /* Цвет фона как у обычного состояния */
+  color: #000000 !important;
+  -webkit-box-shadow: 0 0 0 30px #FFE6EB inset; /* Подстраиваем тень для совпадения с цветом фона */
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Стили для ошибок */
+.error {
+  color: #C3073F;
+  font-size: 0.85rem;
+  margin-top: 2px;
+  text-align: center;
+}
+
+/* Кнопка закрытия модального окна */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #B94A70;
+}
+
+/* Кнопка оплаты */
+.modal-content .pay-button {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  background-color: #B94A70;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(195, 7, 63, 0.3);
+}
+
+.modal-content .pay-button:hover {
+  background-color: #950740;
+  box-shadow: 0 6px 16px rgba(149, 7, 64, 0.5);
+}
+
+.modal-content .pay-button:active {
+  background-color: #6F2232;
+  box-shadow: 0 2px 8px rgba(110, 34, 50, 0.5);
+}
+
+.policy-checkbox {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center align for form */
+  margin-top: 15px;
+}
+
+.policy-container {
+  display: flex;
+  align-items: center;
+  padding: 0 16px; /* Equal padding on both sides */
+  gap: 8px; /* Space between checkbox and text */
+  border-radius: 8px; /* Optional: round corners for a balanced look */
+}
+
+.policy-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #B94A70; /* Border color matching your theme */
+  box-shadow: none; /* Remove any extra shadow */
+  accent-color: #B94A70; /* Checked color */
+}
+
+.policy-container a:link,
+.policy-container a:visited,
+.policy-container a:hover,
+.policy-container a:active {
+  color: #B94A70;
+  text-decoration: none; /* Убирает подчеркивание */
+}
+
+.policy-container a:hover {
+  text-decoration: underline; /* Добавляет подчеркивание при наведении */
+}
