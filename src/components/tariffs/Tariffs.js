@@ -141,7 +141,7 @@ const Tariffs = () => {
     };
 
     // Добавьте пароль в параметры
-    tokenData.Password = password;
+    tokenData.password = password;
 
     //
     // Сортируйте ключи и создайте строку
@@ -178,6 +178,7 @@ const Tariffs = () => {
       name: `${lastName} ${firstName} ${middleName}`,
       email,
       phone,
+      token: "",
     };
 
     paymentData.token = generateToken(paymentData);
