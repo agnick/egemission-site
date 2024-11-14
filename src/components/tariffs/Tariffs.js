@@ -146,7 +146,7 @@ const Tariffs = () => {
       terminalkey: "1730997717244DEMO",
       frame: true, // Opens payment in a new window
       language: "ru",
-      amount: amount * 100, // Amount in kopecks, so multiply by 100
+      amount: 7,
       order: Date.now().toString(), // Unique order ID
       description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" (${paymentType})`,
       name: `${lastName} ${firstName} ${middleName}`,
