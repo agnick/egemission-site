@@ -143,6 +143,7 @@ const Tariffs = () => {
     // Добавьте пароль в параметры
     tokenData.Password = password;
 
+    //
     // Сортируйте ключи и создайте строку
     const sortedKeys = Object.keys(tokenData).sort();
     const concatenatedString = sortedKeys.map((key) => tokenData[key]).join("");
