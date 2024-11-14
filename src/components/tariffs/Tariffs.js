@@ -102,8 +102,8 @@ const Tariffs = () => {
   const { basic, premium } = getTariffData();
 
   const openModal = (price, type, title) => {
-    // Удаляем символы валюты и пробелы, конвертируем в число и переводим в копейки
-    const parsedPrice = parseInt(price.replace(/[^\d]/g, ""), 10) * 100;
+    // Удаляем символы валюты и пробелы, конвертируем в число
+    const parsedPrice = parseInt(price.replace(/[^\d]/g, ""), 10);
     setAmount(parsedPrice);
     setPaymentType(type);
     setTariffTitle(title);
