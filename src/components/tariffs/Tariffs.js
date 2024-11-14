@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./tariffs.css";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
+const crypto = require("crypto");
 
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
@@ -126,6 +127,30 @@ const Tariffs = () => {
     }
   };
 
+  function generateToken(params) {
+    const password = "UiJclu%oqfWQuqGz"; // Укажите ваш пароль
+
+    // Соберите параметры для создания строки для хеширования
+    let tokenData = {
+      TerminalKey: params.terminalkey,
+      Amount: params.amount,
+      OrderId: params.order,
+      Description: params.description,
+      Language: params.language,
+      Frame: params.frame,
+    };
+
+    // Добавьте пароль в параметры
+    tokenData.Password = password;
+
+    // Сортируйте ключи и создайте строку
+    const sortedKeys = Object.keys(tokenData).sort();
+    const concatenatedString = sortedKeys.map((key) => tokenData[key]).join("");
+
+    // Создайте хеш SHA-256
+    return crypto.createHash("sha256").update(concatenatedString).digest("hex");
+  }
+
   const initiatePayment = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -152,9 +177,9 @@ const Tariffs = () => {
       name: `${lastName} ${firstName} ${middleName}`,
       email,
       phone,
-      successurl: "https://egemission.ru/payment-success",
-      failurl: "https://egemission.ru/payment-fail",
     };
+
+    paymentData.token = generateToken(paymentData);
 
     // Create a hidden form element to submit the data
     const form = document.createElement("form");
