@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./tariffs.css";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
-import CryptoJS from "crypto-js";
 
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
@@ -127,31 +126,6 @@ const Tariffs = () => {
     }
   };
 
-  function generateToken(params) {
-    const password = "UiJclu%oqfWQuqGz"; // Укажите ваш пароль
-
-    // Соберите параметры для создания строки для хеширования
-    let tokenData = {
-      terminalkey: params.terminalkey,
-      amount: params.amount,
-      order: params.order,
-      description: params.description,
-      language: params.language,
-      frame: params.frame,
-    };
-
-    // Добавьте пароль в параметры
-    tokenData.password = password;
-
-    //
-    // Сортируйте ключи и создайте строку
-    const sortedKeys = Object.keys(tokenData).sort();
-    const concatenatedString = sortedKeys.map((key) => tokenData[key]).join("");
-
-    // Создайте хеш SHA-256
-    return CryptoJS.SHA256(concatenatedString).toString(CryptoJS.enc.Hex);
-  }
-
   const initiatePayment = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -167,41 +141,56 @@ const Tariffs = () => {
 
     const { firstName, lastName, middleName, phone, email } = formData;
 
-    // Prepare the Tinkoff payment data
-    const paymentData = {
-      terminalkey: "1730997717244DEMO",
-      frame: true, // Opens payment in a new window
-      language: "ru",
-      amount: amount * 100, // Amount in kopecks, so multiply by 100
-      order: Date.now().toString(), // Unique order ID
-      description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" (${paymentType})`,
-      name: `${lastName} ${firstName} ${middleName}`,
-      email,
-      phone,
-      token: "",
-    };
+    try {
+      const response = await fetch("/initiate-payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: amount * 100,
+          description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" на ${paymentType}`,
+          customerKey: email,
+          email,
+          phone,
+        }),
+      });
 
-    paymentData.token = generateToken(paymentData);
+      const data = await response.json();
 
-    // Create a hidden form element to submit the data.
-    const form = document.createElement("form");
-    form.setAttribute("id", "payform-tbank");
-    form.setAttribute("name", "payform-tbank");
-    form.setAttribute("class", "payform-tbank");
+      if (data.PaymentURL) {
+        window.location.href = data.PaymentURL;
 
-    // Add each payment data field to the form as hidden inputs
-    Object.keys(paymentData).forEach((key) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = key;
-      input.value = paymentData[key];
-      form.appendChild(input);
-    });
+        // Проверка статуса платежа через несколько секунд после перенаправления
+        setTimeout(async () => {
+          const paymentStatusResponse = await fetch("/payment-status", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              paymentId: data.PaymentId,
+              email,
+              name: `${lastName} ${firstName} ${middleName}`,
+            }),
+          });
 
-    document.body.appendChild(form); // Append the form to the body temporarily
-    window.pay(form); // Call the Tinkoff pay function
-    document.body.removeChild(form); // Remove the form after submission
-
+          const statusData = await paymentStatusResponse.json();
+          if (statusData.message.includes("Оплата подтверждена")) {
+            alert(
+              "Оплата успешно подтверждена! Письмо отправлено на вашу почту.",
+            );
+          } else {
+            alert("Оплата еще не подтверждена. Проверьте позже.");
+          }
+        }, 10000); // Задержка в 10 секунд для завершения оплаты
+      } else {
+        alert("Ошибка при инициализации платежа.");
+      }
+    } catch (error) {
+      console.error("Ошибка при инициализации платежа:", error);
+      alert("Ошибка при инициализации платежа.");
+    }
     closeModal();
   };
 
