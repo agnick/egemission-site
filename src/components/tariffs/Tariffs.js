@@ -143,7 +143,7 @@ const Tariffs = () => {
 
     // Prepare the Tinkoff payment data
     const paymentData = {
-      terminalkey: process.env.TINKOFF_TERMINAL_KEY,
+      terminalkey: "1730997717244DEMO",
       frame: true, // Opens payment in a new window
       language: "ru",
       amount: amount * 100, // Amount in kopecks, so multiply by 100
