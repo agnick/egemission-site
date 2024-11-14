@@ -137,6 +137,23 @@ app.post("/send-email", async (req, res) => {
 app.post("/initiate-payment", async (req, res) => {
   const { amount, description, customerKey, email, phone } = req.body;
 
+  const receipt = {
+    Email: email,
+    Phone: phone,
+    Taxation: "osn", // Specify your tax system
+    Items: [
+      {
+        Name: description,
+        Price: amount,
+        Quantity: 1,
+        Amount: amount,
+        PaymentMethod: "partial_payment", // Specify installment payment
+        PaymentObject: "service",
+        Tax: "none",
+      },
+    ],
+  };
+
   const params = {
     TerminalKey: process.env.TINKOFF_TERMINAL_KEY,
     Amount: amount,
@@ -149,13 +166,12 @@ app.post("/initiate-payment", async (req, res) => {
       Email: email,
       Phone: phone,
     },
+    Receipt: receipt, // Attach the structured receipt
     SuccessURL: "https://egemission.ru/payment-success",
     FailURL: "https://egemission.ru/payment-fail",
   };
 
   params.Token = generateToken(params);
-
-  console.log(params.Token);
 
   try {
     const response = await axios.post(
@@ -206,6 +222,6 @@ app.post("/payment-status", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(5000, () => {
   console.log("Сервер запущен на порту 5000");
 });

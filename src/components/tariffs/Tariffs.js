@@ -156,10 +156,10 @@ const Tariffs = () => {
         }),
       });
 
-      const data = await response.json();
+      const resp = await response.json();
 
-      if (data.PaymentURL) {
-        window.location.href = data.PaymentURL;
+      if (resp.data.PaymentURL) {
+        window.location.href = resp.data.PaymentURL;
 
         // Проверка статуса платежа через несколько секунд после перенаправления
         setTimeout(async () => {
@@ -169,7 +169,7 @@ const Tariffs = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              paymentId: data.PaymentId,
+              paymentId: resp.data.PaymentId,
               email,
               name: `${lastName} ${firstName} ${middleName}`,
             }),
