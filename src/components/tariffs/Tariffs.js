@@ -148,7 +148,7 @@ const Tariffs = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: amount,
+          amount: amount * 100,
           description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" на ${paymentType}`,
           customerKey: email,
           email,
