@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./tariffs.css";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
-const crypto = require("crypto");
+import crypto from "crypto";
 
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
