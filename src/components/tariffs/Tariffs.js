@@ -187,7 +187,7 @@ const Tariffs = () => {
     });
 
     document.body.appendChild(form); // Append the form to the body temporarily
-    pay(form); // Call the Tinkoff pay function
+    window.pay(form); // Call the Tinkoff pay function
     document.body.removeChild(form); // Remove the form after submission
 
     closeModal();
