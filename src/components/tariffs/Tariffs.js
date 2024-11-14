@@ -182,7 +182,7 @@ const Tariffs = () => {
 
     paymentData.token = generateToken(paymentData);
 
-    // Create a hidden form element to submit the data
+    // Create a hidden form element to submit the data.
     const form = document.createElement("form");
     form.setAttribute("id", "payform-tbank");
     form.setAttribute("name", "payform-tbank");
