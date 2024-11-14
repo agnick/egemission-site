@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./tariffs.css";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
-import crypto from "crypto";
+import CryptoJS from "crypto-js";
 
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
@@ -148,7 +148,7 @@ const Tariffs = () => {
     const concatenatedString = sortedKeys.map((key) => tokenData[key]).join("");
 
     // Создайте хеш SHA-256
-    return crypto.createHash("sha256").update(concatenatedString).digest("hex");
+    return CryptoJS.SHA256(concatenatedString).toString(CryptoJS.enc.Hex);
   }
 
   const initiatePayment = async (e) => {
