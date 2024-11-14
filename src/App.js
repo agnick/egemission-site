@@ -9,6 +9,7 @@ import AboutCourse from "./components/about_courses/AboutCourses";
 import Tariffs from "./components/tariffs/Tariffs";
 import FreeForm from "./components/free-form/FreeForm";
 import Contacts from "./components/contacts/Contacts";
+import PaymentForm from "./components/payment_form/PaymentForm";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <section id="contacts">
         <Contacts />
       </section>
+      <PaymentForm />
     </div>
   );
 }
