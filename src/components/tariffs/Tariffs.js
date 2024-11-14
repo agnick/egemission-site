@@ -132,12 +132,12 @@ const Tariffs = () => {
 
     // Соберите параметры для создания строки для хеширования
     let tokenData = {
-      TerminalKey: params.terminalkey,
-      Amount: params.amount,
-      OrderId: params.order,
-      Description: params.description,
-      Language: params.language,
-      Frame: params.frame,
+      terminalkey: params.terminalkey,
+      amount: params.amount,
+      order: params.order,
+      description: params.description,
+      language: params.language,
+      frame: params.frame,
     };
 
     // Добавьте пароль в параметры
