@@ -146,27 +146,12 @@ const Tariffs = () => {
       terminalkey: "1730997717244DEMO",
       frame: true, // Opens payment in a new window
       language: "ru",
-      amount: toString(amount * 100), // Amount in kopecks, so multiply by 100
+      amount: amount * 100, // Amount in kopecks, so multiply by 100
       order: Date.now().toString(), // Unique order ID
       description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" (${paymentType})`,
       name: `${lastName} ${firstName} ${middleName}`,
       email,
       phone,
-      receipt: JSON.stringify({
-        EmailCompany: "egemission@yandex.ru", // Replace with your company email
-        Taxation: "osn",
-        Items: [
-          {
-            Name: `Оплата курса "${tariffTitle}"`,
-            Price: toString(amount * 100),
-            Quantity: 1.0,
-            Amount: toString(amount * 100),
-            PaymentMethod: "full_payment",
-            PaymentObject: "service",
-            Tax: "none",
-          },
-        ],
-      }),
       successurl: "https://egemission.ru/payment-success",
       failurl: "https://egemission.ru/payment-fail",
     };
