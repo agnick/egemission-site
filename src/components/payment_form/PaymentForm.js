@@ -49,7 +49,7 @@ const PaymentForm = () => {
           className="payform-tbank-row"
           type="hidden"
           name="terminalkey"
-          value="1730997717284"
+          value="1730997717244DEMO"
         />
         <input
           className="payform-tbank-row"
