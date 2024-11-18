@@ -1,7 +1,9 @@
-import React, { useState } from "react";
 import "./tariffs.css";
+
+import React, { useState } from "react";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
+import formatPhoneNumber from "../../helpers/helpers";
 
 const Tariffs = () => {
   const [selectedSubject, setSelectedSubject] = useState("Русский");
@@ -19,39 +21,6 @@ const Tariffs = () => {
   const [amount, setAmount] = useState(0);
   const [paymentType, setPaymentType] = useState("");
   const [tariffTitle, setTariffTitle] = useState("");
-
-  const handleSubjectChange = (subject) => {
-    setSelectedSubject(subject);
-  };
-
-  const formatPhoneNumber = (value) => {
-    const cleaned = value.replace(/\D/g, "");
-    if (cleaned.length === 0) return "";
-    if (cleaned.length <= 1) return `+7`;
-    if (cleaned.startsWith("7")) {
-      const formatted = cleaned.match(
-        /^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/,
-      );
-      if (formatted) {
-        return `+7${formatted[1] ? ` (${formatted[1]}` : ""}${formatted[1] && formatted[1].length === 3 ? ")" : ""}${formatted[2] ? ` ${formatted[2]}` : ""}${formatted[3] ? `-${formatted[3]}` : ""}${formatted[4] ? `-${formatted[4]}` : ""}`;
-      }
-    }
-    return value;
-  };
-
-  const validate = () => {
-    let errors = {};
-    if (!formData.firstName.trim()) {
-      errors.firstName = "Введите имя.";
-    }
-    if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formData.phone)) {
-      errors.phone = "Введите корректный номер телефона.";
-    }
-    if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Введите корректный email.";
-    }
-    return errors;
-  };
 
   const getTariffData = () => {
     if (selectedSubject === "Русский" || selectedSubject === "Математика") {
@@ -101,9 +70,13 @@ const Tariffs = () => {
 
   const { basic, premium } = getTariffData();
 
+  const handleSubjectChange = (subject) => {
+    setSelectedSubject(subject);
+  };
+
   const openModal = (price, type, title) => {
-    // Удаляем символы валюты и пробелы, конвертируем в число
     const parsedPrice = parseInt(price.replace(/[^\d]/g, ""), 10);
+
     setAmount(parsedPrice);
     setPaymentType(type);
     setTariffTitle(title);
@@ -114,6 +87,32 @@ const Tariffs = () => {
     setModalOpen(false);
     setErrors({});
     setCheckboxError("");
+  };
+
+  const validate = () => {
+    let errors = {};
+
+    if (!formData.firstName.trim()) {
+      errors.firstName = "Введите имя.";
+    }
+
+    if (!formData.lastName.trim()) {
+      errors.lastName = "Введите фамилию.";
+    }
+
+    if (!formData.lastName.trim()) {
+      errors.middleName = "Введите отчество.";
+    }
+
+    if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formData.phone)) {
+      errors.phone = "Введите корректный номер телефона.";
+    }
+
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Введите корректный email.";
+    }
+
+    return errors;
   };
 
   const handleChange = (e) => {
@@ -139,58 +138,33 @@ const Tariffs = () => {
       return;
     }
 
-    const { firstName, lastName, middleName, phone, email } = formData;
-
     try {
       const response = await fetch("/initiate-payment", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: amount * 100,
-          description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}" на ${paymentType}`,
-          customerKey: email,
-          email,
-          phone,
+          amount,
+          description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}"`,
+          customerKey: formData.email,
+          email: formData.email,
+          phone: formData.phone,
         }),
       });
 
-      const resp = await response.json();
+      const data = await response.json();
 
-      if (resp.data.PaymentURL) {
-        window.location.href = resp.data.PaymentURL;
-
-        // Проверка статуса платежа через несколько секунд после перенаправления
-        setTimeout(async () => {
-          const paymentStatusResponse = await fetch("/payment-status", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              paymentId: resp.data.PaymentId,
-              email,
-              name: `${lastName} ${firstName} ${middleName}`,
-            }),
-          });
-
-          const statusData = await paymentStatusResponse.json();
-          if (statusData.message.includes("Оплата подтверждена")) {
-            alert(
-              "Оплата успешно подтверждена! Письмо отправлено на вашу почту.",
-            );
-          } else {
-            alert("Оплата еще не подтверждена. Проверьте позже.");
-          }
-        }, 10000); // Задержка в 10 секунд для завершения оплаты
+      if (response.ok && data.PaymentId) {
+        // Запускаем проверку статуса оплаты
+        // checkPaymentStatus(data.PaymentId);
+        console.log("OK");
       } else {
-        alert("Ошибка при инициализации платежа.");
+        alert(`Ошибка при инициализации платежа: ${data.message}`);
       }
     } catch (error) {
       console.error("Ошибка при инициализации платежа:", error);
-      alert("Ошибка при инициализации платежа.");
+      alert("Ошибка при инициализации платежа. Повторите попытку позже.");
     }
+
     closeModal();
   };
 
@@ -399,11 +373,15 @@ const Tariffs = () => {
                   placeholder="Отчество"
                   onChange={handleChange}
                 />
+                {errors.middleName && (
+                  <p className="error">{errors.middleName}</p>
+                )}
 
                 <input
-                  type="tel"
+                  type="text"
                   name="phone"
-                  placeholder="Телефон"
+                  placeholder="+7"
+                  value={formData.phone}
                   onChange={handleChange}
                 />
                 {errors.phone && <p className="error">{errors.phone}</p>}
@@ -424,7 +402,7 @@ const Tariffs = () => {
                       checked={isChecked}
                       onChange={() => {
                         setIsChecked(!isChecked);
-                        setCheckboxError(""); // Clear checkbox error on change
+                        setCheckboxError("");
                       }}
                     />
                     <label htmlFor="policyCheck">
@@ -461,7 +439,7 @@ const Tariffs = () => {
 
         {/* Centered "Договор-оферта" button */}
         <a
-          href="/Договор_публичной_оферты_об_оказании_платных_образовательных_услуг.pdf"
+          href="/documents/Договор_публичной_оферты_об_оказании_платных_образовательных_услуг.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="offer-button"

@@ -1,6 +1,6 @@
 .about-us {
   padding: 45px 20px;
-  background-color: #FFFFFF; /* Использован тёмный оттенок для фона */
+  background-color: #FFFFFF; 
   text-align: center;
 }
 
@@ -36,7 +36,7 @@
   flex: 1 1 30%;
   margin: 20px;
   padding: 30px;
-  background-color: #B94A70; /* Использован серый оттенок для карточек */
+  background-color: #B94A70; 
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;
@@ -52,19 +52,19 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #FFFFFF; /* Насыщенный красный оттенок для заголовков карточек */
+  color: #FFFFFF; 
 }
 
 .advantage1 p {
   font-size: 1.1rem;
-  color: #FFFFFF; /* Светлый оттенок для текста */
+  color: #FFFFFF; 
 }
 
 .advantage2 {
   flex: 1 1 30%;
   margin: 20px;
   padding: 30px;
-  background-color: #B94A70; /* Использован серый оттенок для карточек */
+  background-color: #B94A70; 
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;
@@ -80,19 +80,19 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #FFFFFF; /* Насыщенный красный оттенок для заголовков карточек */
+  color: #FFFFFF; 
 }
 
 .advantage2 p {
   font-size: 1.1rem;
-  color: #FFFFFF; /* Светлый оттенок для текста */
+  color: #FFFFFF; 
 }
 
 .advantage3 {
   flex: 1 1 30%;
   margin: 20px;
   padding: 30px;
-  background-color: #DF7285; /* Использован серый оттенок для карточек */
+  background-color: #DF7285; 
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;
@@ -108,10 +108,10 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #FFFFFF; /* Насыщенный красный оттенок для заголовков карточек */
+  color: #FFFFFF; 
 }
 
 .advantage3 p {
   font-size: 1.1rem;
-  color: #FFFFFF; /* Светлый оттенок для текста */
+  color: #FFFFFF; 
 }

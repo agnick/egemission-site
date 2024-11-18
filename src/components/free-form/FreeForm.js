@@ -1,6 +1,8 @@
+import "./free_form.css";
+
 import React, { useState } from "react";
 import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
-import "./free_form.css";
+import formatPhoneNumber from "../../helpers/helpers";
 
 const FreeForm = () => {
   const [formData, setFormData] = useState({
@@ -13,22 +15,7 @@ const FreeForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-  const [checkboxError, setCheckboxError] = useState(""); // Checkbox error state
-
-  const formatPhoneNumber = (value) => {
-    const cleaned = value.replace(/\D/g, "");
-    if (cleaned.length === 0) return "";
-    if (cleaned.length <= 1) return `+7`;
-    if (cleaned.startsWith("7")) {
-      const formatted = cleaned.match(
-        /^7(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/,
-      );
-      if (formatted) {
-        return `+7${formatted[1] ? ` (${formatted[1]}` : ""}${formatted[1] && formatted[1].length === 3 ? ")" : ""}${formatted[2] ? ` ${formatted[2]}` : ""}${formatted[3] ? `-${formatted[3]}` : ""}${formatted[4] ? `-${formatted[4]}` : ""}`;
-      }
-    }
-    return value;
-  };
+  const [checkboxError, setCheckboxError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,13 +53,13 @@ const FreeForm = () => {
       if (!isChecked) {
         setCheckboxError(
           "Необходимо принять условия политики обработки данных.",
-        ); // Set checkbox error
+        );
       }
       return;
     }
 
     setErrors({});
-    setCheckboxError(""); // Clear checkbox error
+    setCheckboxError("");
     setIsSubmitted(false);
     setErrorMessage("");
 
@@ -166,13 +153,13 @@ const FreeForm = () => {
                 checked={isChecked}
                 onChange={() => {
                   setIsChecked(!isChecked);
-                  setCheckboxError(""); // Clear checkbox error on change
+                  setCheckboxError("");
                 }}
               />
               <label htmlFor="policyCheck">
                 Я принимаю условия{" "}
                 <a
-                  href="/Политика конфиденциальности.pdf"
+                  href="/documents/Политика конфиденциальности.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -180,7 +167,7 @@ const FreeForm = () => {
                 </a>{" "}
                 и даю{" "}
                 <a
-                  href="/Пользовательское соглашение .pdf"
+                  href="/documents/Пользовательское соглашение .pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -190,7 +177,6 @@ const FreeForm = () => {
               </label>
             </div>
             {checkboxError && <p className="error">{checkboxError}</p>}{" "}
-            {/* Checkbox error message below */}
           </div>
 
           <button type="submit">Отправить заявку</button>

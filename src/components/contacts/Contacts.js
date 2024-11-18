@@ -32,7 +32,7 @@ const Contacts = () => {
         <p>ИП Шарипова М.А. ИНН 860228612201. ОГРН 324861700105811</p>
         <p>
           <a
-            href="/Политика конфиденциальности.pdf"
+            href="/documents/Политика конфиденциальности.pdf"
             target="_blank"
             el="noopener noreferrer"
             className="privacy-policy"
@@ -43,7 +43,7 @@ const Contacts = () => {
 
         <p>
           <a
-            href="/Пользовательское соглашение .pdf"
+            href="/documents/Пользовательское соглашение .pdf"
             target="_blank"
             el="noopener noreferrer"
             className="privacy-policy"

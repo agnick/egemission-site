@@ -1,4 +1,3 @@
-/* Основной стиль навигации */
 nav {
   display: flex;
   justify-content: space-between;
@@ -14,14 +13,13 @@ nav {
   max-width: 100%;
   object-fit: contain;
   transition: all 0.3s ease;
-  margin-left: 1rem; /* Отступ слева для симметрии */
+  margin-left: 1rem; 
 }
 
-/* Стиль для иконки меню */
 .menu {
   display: none;
   cursor: pointer;
-  margin-right: 1rem; /* Отступ справа для симметрии */
+  margin-right: 1rem; 
 }
 
 .menu span {
@@ -34,16 +32,14 @@ nav {
   transition: all 0.3s ease;
 }
 
-/* Основной стиль для списка навигации */
 nav ul {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  align-items: center; /* Центрирование элементов списка по вертикали */
+  align-items: center; 
 }
 
-/* Стили для пунктов меню */
 nav ul li {
   margin: 0 0.5rem;
 }
@@ -79,19 +75,15 @@ nav ul li button:hover {
   color: #e5e5e5;
 }
 
-/* Мобильная версия */
 @media (max-width: 1024px) {
-  /* Логотип остается слева, не смещается */
   .navbar-logo {
-    margin-left: 1rem; /* Отступ сохраняется для симметрии */
+    margin-left: 1rem; 
   }
 
-  /* Иконка меню */
   .menu {
     display: block;
   }
 
-  /* Скрываем список навигации по умолчанию */
   nav ul {
     display: none;
     position: absolute;
@@ -105,7 +97,6 @@ nav ul li button:hover {
     padding: 1rem 0;
   }
 
-  /* При открытии меню, делаем его видимым и центрируем */
   nav ul.open {
     display: flex;
   }
@@ -122,21 +113,18 @@ nav ul li button:hover {
   }
 }
 
-/* Мобильная версия */
 @media (max-width: 768px) {
-  /* Ограничиваем максимальную ширину и уменьшаем размер текста */
   .navbar-contact {
     max-width: 80%;
-    font-size: 0.9rem; /* Уменьшаем размер шрифта */
-    padding: 8px 16px; /* Уменьшаем внутренние отступы */
+    font-size: 0.9rem; 
+    padding: 8px 16px; 
   }
 }
 
 @media (max-width: 480px) {
-  /* Дополнительное уменьшение размера текста и адаптация кнопки для маленьких экранов */
   .navbar-contact {
     max-width: 70%;
-    font-size: 0.8rem; /* Еще уменьшаем размер шрифта */
-    padding: 6px 12px; /* Еще уменьшаем внутренние отступы */
+    font-size: 0.8rem; 
+    padding: 6px 12px; 
   }
 }
