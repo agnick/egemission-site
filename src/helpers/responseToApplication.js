@@ -174,7 +174,6 @@ app.post("/initiate-payment", async (req, res) => {
   }
 });
 
-// Маршрут для проверки статуса оплаты и отправки email
 app.post("/payment-status", async (req, res) => {
   const { paymentId, email, name } = req.body;
 
@@ -185,32 +184,47 @@ app.post("/payment-status", async (req, res) => {
   }
 
   try {
+    // Формируем параметры для подписи
+    const params = {
+      TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
+      PaymentId: paymentId,
+    };
+
+    // Генерация токена для проверки статуса
+    params.Token = generateToken({
+      TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
+      PaymentId: paymentId,
+    });
+
+    // Отправка запроса на проверку статуса
     const response = await axios.post(
       "https://securepay.tinkoff.ru/v2/GetState",
-      {
-        TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
-        PaymentId: paymentId,
-        Token: "...",
-      },
+      params,
     );
 
-    if (response.data.Success && response.data.Status === "CONFIRMED") {
+    const data = response.data;
+
+    if (data.Success && data.Status === "CONFIRMED") {
+      // Если оплата подтверждена, отправляем email пользователю
       const mailOptions = {
         from: process.env.EMAIL_NAME,
         to: email,
-        subject: "Доступ к занятиям",
-        text: `Привет, ${name}! Вот ссылка на наш Telegram-канал для занятий: https://t.me/joinchat/XXXXX`,
+        subject: "Оплата подтверждена — доступ к занятиям",
+        text: `Привет, ${name}!\n\nВаша оплата прошла успешно. Вот ссылка на наш Telegram-канал для занятий: https://t.me/joinchat/XXXXX\n\nСпасибо, что выбрали нас!`,
       };
 
       await transporter.sendMail(mailOptions);
+
       return res
         .status(200)
         .json({ message: "Оплата подтверждена и email отправлен!" });
-    } else if (!response.data.Success) {
+    } else if (!data.Success) {
+      // Обработка ошибки от Tinkoff API
       return res
         .status(400)
-        .json({ message: `Ошибка: ${response.data.Message}` });
+        .json({ message: `Ошибка: ${data.Message || "Неизвестная ошибка"}` });
     } else {
+      // Если статус еще не CONFIRMED
       return res.status(200).json({ message: "Оплата еще не подтверждена." });
     }
   } catch (error) {

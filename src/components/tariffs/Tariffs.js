@@ -156,6 +156,48 @@ const Tariffs = () => {
       if (response.ok && data.PaymentId) {
         // Перенаправление на страницу оплаты
         window.location.href = data.PaymentURL;
+
+        // После редиректа проверяем статус платежа через определенный интервал
+        const checkStatusInterval = setInterval(async () => {
+          try {
+            const statusResponse = await fetch("/payment-status", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                paymentId: data.PaymentId,
+                email: formData.email,
+                name: `${formData.firstName} ${formData.lastName}`,
+              }),
+            });
+
+            const statusData = await statusResponse.json();
+
+            console.log(statusData);
+
+            if (
+              statusResponse.ok &&
+              statusData.message.includes("Оплата подтверждена")
+            ) {
+              clearInterval(checkStatusInterval);
+              alert(
+                "Оплата подтверждена! На вашу почту отправлена ссылка с приглашением в приватный телеграмм канал. Если письмо не пришло, проверьте папку спам!",
+              );
+            } else if (
+              statusData.message.includes("Оплата еще не подтверждена")
+            ) {
+              console.log("Платеж еще не подтвержден. Проверяем далее...");
+            } else {
+              clearInterval(checkStatusInterval);
+              alert(`Ошибка: ${statusData.message}`);
+            }
+          } catch (error) {
+            clearInterval(checkStatusInterval);
+            console.error("Ошибка при проверке статуса платежа:", error);
+            alert(
+              "Ошибка при проверке статуса платежа. Повторите попытку позже.",
+            );
+          }
+        }, 10000); // Проверяем каждые 10 секунд
       } else {
         alert(`Ошибка при инициализации платежа: ${data.message}`);
       }
