@@ -143,7 +143,7 @@ const Tariffs = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount,
+          amount: amount * 100,
           description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}"`,
           customerKey: formData.email,
           email: formData.email,
@@ -154,9 +154,8 @@ const Tariffs = () => {
       const data = await response.json();
 
       if (response.ok && data.PaymentId) {
-        // Запускаем проверку статуса оплаты
-        // checkPaymentStatus(data.PaymentId);
-        console.log("OK");
+        // Перенаправление на страницу оплаты
+        window.location.href = data.PaymentURL;
       } else {
         alert(`Ошибка при инициализации платежа: ${data.message}`);
       }
