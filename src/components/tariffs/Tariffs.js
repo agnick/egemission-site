@@ -31,18 +31,19 @@ const Tariffs = () => {
     if (paymentStatus === "success") {
       setNotification({
         type: "success",
-        message: "Оплата прошла успешно! Спасибо за ваш заказ.",
+        message:
+          "Оплата прошла успешно! На указанную вами почту отправлена ссылка на занятия. Если ничего не пришло, то проверьте папку спам или напишите нам.",
       });
-    } else {
+    } else if (paymentStatus === "failed") {
       setNotification({
         type: "error",
         message:
-          "К сожалению, оплата не удалась или еще не прошла. Попробуйте еще раз или подождите.",
+          "К сожалению, оплата не удалась или еще не прошла. Попробуйте еще раз или напишите нам.",
       });
     }
 
     // Очистка уведомления через 10 секунд
-    const timer = setTimeout(() => setNotification(null), 10000);
+    const timer = setTimeout(() => setNotification(null), 20000);
     return () => clearTimeout(timer);
   }, []);
 
