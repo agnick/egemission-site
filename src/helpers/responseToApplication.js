@@ -107,6 +107,8 @@ function generateToken(params) {
     { Recurrent: params.Recurrent || undefined },
     { TerminalKey: params.TerminalKey || undefined },
     { Language: params.Language || undefined },
+    { SuccessURL: params.SuccessURL || undefined },
+    { FailURL: params.FailURL || undefined },
   ].filter((param) => Object.values(param)[0] !== undefined);
 
   tokenData = tokenData.sort((a, b) =>
@@ -151,6 +153,8 @@ app.post("/initiate-payment", async (req, res) => {
       Phone: phone,
     },
     Receipt: receipt, // Attach the structured receipt
+    SuccessURL: "https://egemission.ru/?paymentStatus=success",
+    FailURL: "https://egemission.ru/?paymentStatus=failed",
   };
 
   params.Token = generateToken(params);

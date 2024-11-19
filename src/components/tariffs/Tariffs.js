@@ -21,6 +21,30 @@ const Tariffs = () => {
   const [amount, setAmount] = useState(0);
   const [paymentType, setPaymentType] = useState("");
   const [tariffTitle, setTariffTitle] = useState("");
+  const [notification, setNotification] = useState(null);
+
+  useEffect(() => {
+    // Проверка параметров URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const paymentStatus = queryParams.get("paymentStatus");
+
+    if (paymentStatus === "success") {
+      setNotification({
+        type: "success",
+        message: "Оплата прошла успешно! Спасибо за ваш заказ.",
+      });
+    } else {
+      setNotification({
+        type: "error",
+        message:
+          "К сожалению, оплата не удалась или еще не прошла. Попробуйте еще раз или подождите.",
+      });
+    }
+
+    // Очистка уведомления через 10 секунд
+    const timer = setTimeout(() => setNotification(null), 10000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const getTariffData = () => {
     if (selectedSubject === "Русский" || selectedSubject === "Математика") {
@@ -169,6 +193,16 @@ const Tariffs = () => {
 
   return (
     <>
+      {notification && (
+        <div
+          className={`notification ${
+            notification.type === "success" ? "success" : "error"
+          }`}
+        >
+          {notification.message}
+        </div>
+      )}
+
       <section id="tariffs" className="tariffs">
         <h2>
           Наши тарифы по{" "}
