@@ -1,6 +1,6 @@
 import "./tariffs.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaCheckCircle, FaBolt } from "react-icons/fa";
 import scrollToSection from "../../helpers/scrollToSection";
 import formatPhoneNumber from "../../helpers/helpers";
