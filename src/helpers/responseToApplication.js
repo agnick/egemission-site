@@ -9,6 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(morgan("combined"));
 
+const pendingPayments = [];
+
 // Перехватчики для логирования запросов и ответов Axios
 axios.interceptors.request.use((request) => {
   console.log("Axios Request:", {
@@ -93,28 +95,19 @@ app.post("/send-email", async (req, res) => {
 
 // Function to generate the Tinkoff Token
 function generateToken(params) {
-  const {
-    TerminalKey,
-    Amount,
-    OrderId,
-    Description,
-    CustomerKey,
-    Recurrent,
-    Language,
-  } = params;
-
   const password = process.env.TINKOFF_TEST_TERMINAL_PASSWORD;
 
   let tokenData = [
-    { Amount: Amount.toString() },
-    { Description: Description },
-    { OrderId: OrderId },
-    { Password: password },
-    { CustomerKey: CustomerKey },
-    { Recurrent: Recurrent },
-    { TerminalKey: TerminalKey },
-    { Language: Language },
-  ];
+    { Amount: params.Amount ? params.Amount.toString() : undefined },
+    { Description: params.Description || undefined },
+    { OrderId: params.OrderId || undefined },
+    { PaymentId: params.PaymentId || undefined },
+    { Password: password || undefined },
+    { CustomerKey: params.CustomerKey || undefined },
+    { Recurrent: params.Recurrent || undefined },
+    { TerminalKey: params.TerminalKey || undefined },
+    { Language: params.Language || undefined },
+  ].filter((param) => Object.values(param)[0] !== undefined);
 
   tokenData = tokenData.sort((a, b) =>
     Object.keys(a)[0].localeCompare(Object.keys(b)[0]),
@@ -167,72 +160,86 @@ app.post("/initiate-payment", async (req, res) => {
       "https://securepay.tinkoff.ru/v2/Init",
       params,
     );
-    res.status(200).json(response.data);
+
+    if (response.data.Success) {
+      // Добавляем задачу в очередь
+      pendingPayments.push({
+        paymentId: response.data.PaymentId,
+        email,
+        name: `${req.body.firstName} ${req.body.lastName}`,
+        amount,
+      });
+
+      res.status(200).json(response.data);
+    } else {
+      res.status(400).json({ message: response.data.Message });
+    }
   } catch (error) {
     console.error("Ошибка при инициализации платежа:", error);
     res.status(500).json({ message: "Ошибка при инициализации платежа." });
   }
 });
 
-app.post("/payment-status", async (req, res) => {
-  const { paymentId, email, name } = req.body;
-
-  if (!paymentId || !email || !name) {
-    return res
-      .status(400)
-      .json({ message: "Отсутствуют обязательные параметры." });
-  }
-
-  try {
-    // Формируем параметры для подписи
-    const params = {
-      TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
-      PaymentId: paymentId,
-    };
-
-    // Генерация токена для проверки статуса
-    params.Token = generateToken({
-      TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
-      PaymentId: paymentId,
-    });
-
-    // Отправка запроса на проверку статуса
-    const response = await axios.post(
-      "https://securepay.tinkoff.ru/v2/GetState",
-      params,
-    );
-
-    const data = response.data;
-
-    if (data.Success && data.Status === "CONFIRMED") {
-      // Если оплата подтверждена, отправляем email пользователю
-      const mailOptions = {
-        from: process.env.EMAIL_NAME,
-        to: email,
-        subject: "Оплата подтверждена — доступ к занятиям",
-        text: `Привет, ${name}!\n\nВаша оплата прошла успешно. Вот ссылка на наш Telegram-канал для занятий: https://t.me/joinchat/XXXXX\n\nСпасибо, что выбрали нас!`,
+// Проверка статуса платежей
+const checkPaymentStatus = async () => {
+  for (const payment of pendingPayments) {
+    try {
+      const params = {
+        TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
+        PaymentId: payment.paymentId,
       };
 
-      await transporter.sendMail(mailOptions);
+      params.Token = generateToken(params);
 
-      return res
-        .status(200)
-        .json({ message: "Оплата подтверждена и email отправлен!" });
-    } else if (!data.Success) {
-      // Обработка ошибки от Tinkoff API
-      return res
-        .status(400)
-        .json({ message: `Ошибка: ${data.Message || "Неизвестная ошибка"}` });
-    } else {
-      // Если статус еще не CONFIRMED
-      return res.status(200).json({ message: "Оплата еще не подтверждена." });
+      const response = await axios.post(
+        "https://securepay.tinkoff.ru/v2/GetState",
+        params,
+      );
+
+      const data = response.data;
+
+      if (data.Success && data.Status === "CONFIRMED") {
+        // Удаляем платеж из очереди
+        const index = pendingPayments.findIndex(
+          (p) => p.paymentId === payment.paymentId,
+        );
+        if (index !== -1) pendingPayments.splice(index, 1);
+
+        // Отправляем email
+        const mailOptions = {
+          from: process.env.EMAIL_NAME,
+          to: payment.email,
+          subject: "Оплата подтверждена — доступ к занятиям",
+          text: `Привет, ${payment.name}!\n\nВаша оплата прошла успешно. Спасибо, что выбрали нас!`,
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log(`Email отправлен для платежа: ${payment.paymentId}`);
+      } else if (
+        !data.Success ||
+        data.Status === "CANCELED" ||
+        data.Status === "REJECTED"
+      ) {
+        // Удаляем отклоненные или ошибочные платежи из очереди
+        const index = pendingPayments.findIndex(
+          (p) => p.paymentId === payment.paymentId,
+        );
+        if (index !== -1) pendingPayments.splice(index, 1);
+
+        console.log(`Платеж отклонен: ${payment.paymentId}`);
+      }
+    } catch (error) {
+      console.error(
+        `Ошибка проверки статуса платежа ${payment.paymentId}:`,
+        error,
+      );
     }
-  } catch (error) {
-    console.error("Ошибка при проверке статуса платежа:", error);
-    res.status(500).json({ message: "Ошибка при проверке статуса платежа." });
   }
-});
+};
 
-app.listen(3000, () => {
-  console.log("Сервер запущен на порту 3000");
+// Запускаем проверку каждые 10 секунд
+setInterval(checkPaymentStatus, 10000);
+
+app.listen(5000, () => {
+  console.log("Сервер запущен на порту 5000");
 });
