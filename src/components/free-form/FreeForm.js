@@ -84,7 +84,7 @@ const FreeForm = () => {
   return (
     <>
       <div className="tariff-form">
-        <h3>Заполни заявку и получи разбор одной темы бесплатно!</h3>
+        <h3>Заполните заявку и мы свяжемся с Вами</h3>
         <form onSubmit={handleSubmit}>
           <div>
             <input

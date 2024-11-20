@@ -56,15 +56,71 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Функция для создания временной ссылки
+const createTemporaryInviteLink = async (chatId, paymentId) => {
+  try {
+    const response = await axios.post(
+      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/createChatInviteLink`,
+      {
+        chat_id: chatId,
+        expire_date: Math.floor(Date.now() / 1000) + 86400, // Срок действия (24 часа)
+        member_limit: 1, // Один пользователь
+        start_param: paymentId, // Уникальный параметр
+      },
+    );
+
+    if (response.data.ok) {
+      return response.data.result.invite_link;
+    } else {
+      console.error("Ошибка при создании ссылки:", response.data.description);
+      throw new Error(response.data.description);
+    }
+  } catch (error) {
+    console.error("Ошибка при создании ссылки:", error.message);
+    throw error;
+  }
+};
+
+// Функция для выбора канала в зависимости от курса
+const getChatIdForCourse = (description) => {
+  if (
+    description.includes("СДЕЛАЙ СЕБЯ САМ") &&
+    description.includes("Математика")
+  ) {
+    return process.env.DO_IT_YOURSELF_MATH_CHAT_ID;
+  } else if (
+    description.includes("СДЕЛАЙ СЕБЯ С НАМИ") &&
+    description.includes("Математика")
+  ) {
+    return process.env.MAKE_YOURSELF_WITH_US_MATH_CHAT_ID;
+  } else if (
+    description.includes("СДЕЛАЙ СЕБЯ САМ") &&
+    description.includes("Русский")
+  ) {
+    return process.env.DO_IT_YOURSELF_RUSSIAN_CHAT_ID;
+  } else if (
+    description.includes("СДЕЛАЙ СЕБЯ С НАМИ") &&
+    description.includes("Русский")
+  ) {
+    return process.env.MAKE_YOURSELF_WITH_US_RUSSIAN_CHAT_ID;
+  }
+  throw new Error("Неизвестный курс");
+};
+
 app.post("/send-email", async (req, res) => {
   const { name, phone, email, contactMethod } = req.body;
+
+  const mailText = `
+  <p>Спасибо за заявку! Мы свяжемся с Вами в ближайшее время.</p>
+  <p><em>Ваш помощник в мире знаний, ЕГЭmission</em></p>
+  `;
 
   // Отправка email пользователю
   const mailOptions = {
     from: process.env.EMAIL_NAME,
     to: email,
-    subject: "Доступ к занятиям",
-    text: `Привет, ${name}! Вот ссылка на занятия: https://translate.google.com/?hl=ru&sl=auto&tl=ru&op=translate`,
+    subject: "Ваша заявка принята!",
+    html: mailText,
   };
 
   try {
@@ -74,7 +130,7 @@ app.post("/send-email", async (req, res) => {
     // Отправляем данные в Telegram менеджера
     const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
     const telegramChatId = process.env.TELEGRAM_MANAGER_ID;
-    const message = `Новая заявка на бесплатный разбор:\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\nСпособ связи: ${contactMethod}`;
+    const message = `Новая заявка на обратную связь:\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\nСпособ связи: ${contactMethod}`;
 
     await axios.post(
       `https://api.telegram.org/bot${telegramBotToken}/sendMessage`,
@@ -95,7 +151,7 @@ app.post("/send-email", async (req, res) => {
 
 // Function to generate the Tinkoff Token
 function generateToken(params) {
-  const password = process.env.TINKOFF_TEST_TERMINAL_PASSWORD;
+  const password = process.env.TINKOFF_TERMINAL_PASSWORD;
 
   let tokenData = [
     { Amount: params.Amount ? params.Amount.toString() : undefined },
@@ -141,7 +197,7 @@ app.post("/initiate-payment", async (req, res) => {
   };
 
   const params = {
-    TerminalKey: process.env.TINKOFF_TEST_TERMINAL_KEY,
+    TerminalKey: process.env.TINKOFF_TERMINAL_KEY,
     Amount: amount,
     OrderId: Date.now().toString(),
     Description: description,
@@ -172,6 +228,7 @@ app.post("/initiate-payment", async (req, res) => {
         email,
         name: `${req.body.firstName} ${req.body.lastName}`,
         amount,
+        description,
       });
 
       res.status(200).json(response.data);
@@ -209,12 +266,38 @@ const checkPaymentStatus = async () => {
         );
         if (index !== -1) pendingPayments.splice(index, 1);
 
+        // Генерация ссылки для канала
+        const chatId = getChatIdForCourse(payment.description);
+        const inviteLink = await createTemporaryInviteLink(
+          chatId,
+          payment.paymentId,
+        );
+        const publicLink = "https://t.me/egemission";
+
+        // Определяем дату начала курса
+        let startDate = "";
+        if (payment.description.includes("Математика")) {
+          startDate = "25 ноября";
+        } else if (payment.description.includes("Русский")) {
+          startDate = "5 декабря";
+        }
+
+        const mailText = `
+  <p>С радостью сообщаем вам, что ваша оплата за курс подготовки к ЕГЭ по <strong>${
+    payment.description.includes("Математика") ? "математике" : "русскому языку"
+  }</strong> успешно зарегистрирована! Спасибо, что выбрали нас. Ваш курс начнётся <strong>${startDate}</strong>. Ниже прикрепляем вам ссылки на каналы, где будет размещена вся необходимая информация.</p>
+  <p>Общий канал с информацией: <a href="${publicLink}">${publicLink}</a></p>
+  <p>Персональная ссылка на ваш курс: <a href="${inviteLink}">${inviteLink}</a></p>
+  <p><strong>Обращаем ваше внимание</strong>, что ссылки действуют <strong>24 часа</strong>, также, по ссылке на канал можно перейти только <strong>ОДИН</strong> раз. Мы рады видеть вас в нашей команде, ведь вместе мы сила!</p>
+  <p><em>Ваш помощник в мире знаний, ЕГЭmission</em></p>
+`;
+
         // Отправляем email
         const mailOptions = {
           from: process.env.EMAIL_NAME,
           to: payment.email,
-          subject: "Оплата подтверждена — доступ к занятиям",
-          text: `Привет, ${payment.name}!\n\nВаша оплата прошла успешно. Спасибо, что выбрали нас!`,
+          subject: "Подтверждение оплаты курса подготовки к ЕГЭ",
+          html: mailText,
         };
 
         await transporter.sendMail(mailOptions);
@@ -240,6 +323,96 @@ const checkPaymentStatus = async () => {
     }
   }
 };
+
+// Обработка webhook для переходов по ссылке
+app.post("/webhook/telegram", async (req, res) => {
+  try {
+    console.log("Incoming webhook data:", JSON.stringify(req.body, null, 2));
+
+    const { message, my_chat_member } = req.body;
+
+    if (message && message.chat && message.chat.id && message.text) {
+      const telegramUserId = message.chat.id;
+      const userMessage = message.text;
+
+      const payment = pendingPayments.find((p) =>
+        userMessage.includes(p.paymentId),
+      );
+
+      if (!payment) {
+        console.error("Payment not found for the given message.");
+        return res.status(404).send("Payment not found");
+      }
+
+      const connectionTime = new Date().toLocaleString("ru-RU", {
+        timeZone: "Europe/Moscow",
+      });
+
+      const managerMessage = `
+        Новый пользователь подключился к курсу:
+        - ФИО: ${payment.name}
+        - Номер телефона: ${payment.phone}
+        - Email: ${payment.email}
+        - Курс: ${payment.description}
+        - Telegram ID: ${telegramUserId}
+        - Дата подключения к курсу: ${connectionTime}
+      `;
+
+      await axios.post(
+        `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          chat_id: process.env.TELEGRAM_MANAGER_ID,
+          text: managerMessage,
+        },
+      );
+
+      return res.status(200).send("Webhook processed successfully");
+    }
+
+    if (
+      my_chat_member &&
+      my_chat_member.chat &&
+      my_chat_member.new_chat_member
+    ) {
+      const chatId = my_chat_member.chat.id;
+      const userId = my_chat_member.from.id;
+      const status = my_chat_member.new_chat_member.status;
+
+      console.log(
+        `User ${userId} changed status in chat ${chatId} to ${status}`,
+      );
+
+      if (status === "member" || status === "administrator") {
+        const connectionTime = new Date().toLocaleString("ru-RU", {
+          timeZone: "Europe/Moscow",
+        });
+
+        const managerMessage = `
+          Пользователь ${my_chat_member.from.first_name} (${my_chat_member.from.username || "Без имени"})
+          только что присоединился к чату ${my_chat_member.chat.title}.
+
+          ID чата: ${chatId}
+          Дата подключения: ${connectionTime}
+        `;
+
+        await axios.post(
+          `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+          {
+            chat_id: process.env.TELEGRAM_MANAGER_ID,
+            text: managerMessage,
+          },
+        );
+
+        return res.status(200).send("Member status processed successfully");
+      }
+    }
+
+    res.status(400).send("Invalid webhook format");
+  } catch (error) {
+    console.error("Error processing webhook:", error.message);
+    res.status(500).send("Error processing webhook");
+  }
+});
 
 // Запускаем проверку каждые 10 секунд
 setInterval(checkPaymentStatus, 10000);

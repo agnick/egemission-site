@@ -6,7 +6,7 @@ import scrollToSection from "../../helpers/scrollToSection";
 import formatPhoneNumber from "../../helpers/helpers";
 
 const Tariffs = () => {
-  const [selectedSubject, setSelectedSubject] = useState("Русский");
+  const [selectedSubject, setSelectedSubject] = useState("Математика");
   const [isModalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -22,6 +22,8 @@ const Tariffs = () => {
   const [paymentType, setPaymentType] = useState("");
   const [tariffTitle, setTariffTitle] = useState("");
   const [notification, setNotification] = useState(null);
+
+  const startDate = selectedSubject === "Русский" ? "5 декабря" : "25 ноября";
 
   useEffect(() => {
     // Проверка параметров URL
@@ -169,7 +171,7 @@ const Tariffs = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount: amount * 100,
-          description: `Оплата курса "${tariffTitle}" по предмету "${selectedSubject}"`,
+          description: `Оплата курса "${tariffTitle}". "${selectedSubject}". "${paymentType}"`,
           customerKey: formData.email,
           email: formData.email,
           phone: formData.phone,
@@ -214,15 +216,9 @@ const Tariffs = () => {
               : "русскому языку и математике"}
         </h2>
 
+        <p className="course-start-date">Курс стартует: {startDate}</p>
+
         <div className="subject-buttons">
-          <button
-            className={`subject-button ${
-              selectedSubject === "Русский" ? "active" : ""
-            }`}
-            onClick={() => handleSubjectChange("Русский")}
-          >
-            Русский
-          </button>
           <button
             className={`subject-button ${
               selectedSubject === "Математика" ? "active" : ""
@@ -233,11 +229,11 @@ const Tariffs = () => {
           </button>
           <button
             className={`subject-button ${
-              selectedSubject === "1+1" ? "active" : ""
+              selectedSubject === "Русский" ? "active" : ""
             }`}
-            onClick={() => handleSubjectChange("1+1")}
+            onClick={() => handleSubjectChange("Русский")}
           >
-            1+1
+            Русский
           </button>
         </div>
 
@@ -380,7 +376,7 @@ const Tariffs = () => {
                 &times;
               </span>
               <h2>
-                Оплата курса "{tariffTitle}" по {selectedSubject}: {paymentType}
+                Оплата курса "{tariffTitle}". {selectedSubject}: {paymentType}
               </h2>
               <form onSubmit={initiatePayment}>
                 <input

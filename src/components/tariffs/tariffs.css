@@ -478,3 +478,26 @@
 .notification.error {
   background-color: #f44336;
 }
+
+.course-start-date {
+  font-size: 1.2rem;
+  color: #FFD700; /* Золотой цвет для выделения */
+  margin-top: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+  background-color: rgba(255, 215, 0, 0.2); /* Легкий фон для подсветки */
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-block; /* Чтобы не занимать всю ширину */
+  animation: glow 2s infinite alternate; /* Эффект мягкого свечения */
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 1);
+  }
+}
