@@ -6,7 +6,7 @@ import scrollToSection from "../../helpers/scrollToSection";
 import formatPhoneNumber from "../../helpers/helpers";
 
 const Tariffs = () => {
-  const [selectedSubject, setSelectedSubject] = useState("Математика");
+  const [selectedSubject, setSelectedSubject] = useState("Русский");
   const [isModalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -219,14 +219,14 @@ const Tariffs = () => {
         <p className="course-start-date">Курс стартует: {startDate}</p>
 
         <div className="subject-buttons">
-          <button
+          {/* <button
             className={`subject-button ${
               selectedSubject === "Математика" ? "active" : ""
             }`}
             onClick={() => handleSubjectChange("Математика")}
           >
             Математика
-          </button>
+          </button> */}
           <button
             className={`subject-button ${
               selectedSubject === "Русский" ? "active" : ""
