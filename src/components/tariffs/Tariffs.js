@@ -438,7 +438,7 @@ const Tariffs = () => {
                     <label htmlFor="policyCheck">
                       Я принимаю условия{" "}
                       <a
-                        href="/Политика конфиденциальности.pdf"
+                        href="/documents/Политика конфиденциальности.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -446,7 +446,7 @@ const Tariffs = () => {
                       </a>{" "}
                       и даю{" "}
                       <a
-                        href="/Пользовательское соглашение .pdf"
+                        href="/documents/Пользовательское соглашение .pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
